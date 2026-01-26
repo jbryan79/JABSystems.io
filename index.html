@@ -3,73 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAB Systems</title>
 
-  <title>JAB Systems — Enterprise Tooling & Automation</title>
+  <meta name="description" content="JAB Systems designs and delivers production-ready administration tools and automation for real-world environments." />
 
-  <meta name="description"
-        content="JAB Systems builds enterprise-grade administration tools and custom automation for small and mid-sized businesses." />
+  <style>
+    :root {
+      --bg-dark: #0b1220;
+      --bg-card: #0f1a2e;
+      --text-primary: #ffffff;
+      --text-secondary: #c7d2fe;
+      --accent: #3b82f6;
+    }
 
-  <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Ubuntu, sans-serif;
+      background: radial-gradient(circle at top, #122044, var(--bg-dark));
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 720px;
+      width: 100%;
+      background: linear-gradient(180deg, var(--bg-card), #0b1328);
+      border-radius: 16px;
+      padding: 48px 32px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    /* LOGO */
+    .logo-container {
+      width: 280px;          /* adjust size here */
+      max-width: 100%;
+      margin: 0 auto 32px;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-top: 32px;
+    }
+  </style>
 </head>
-
 <body>
+
   <main class="container">
+    <div class="logo-container">
+      <img src="/assets/jab-logo.png" alt="JAB Systems Logo" />
+    </div>
 
-    <!-- HERO -->
-    <header class="hero">
-      <img src="assets/jab-logo.png" alt="JAB Systems Logo" class="logo" />
+    <span class="badge">Enterprise System Tooling</span>
 
-      <h1>Enterprise System Tooling.<br />Built by Operators.</h1>
+    <h1>Built by Operators</h1>
 
-      <p class="subheadline">
-        JAB Systems designs and delivers production-ready administration tools
-        and automation for real-world environments.
-      </p>
+    <p>
+      JAB Systems designs and delivers production-ready administration tools
+      and automation for real-world environments.
+    </p>
 
-      <p class="status">
-        🚧 Website in progress. Client work and product development are active.
-      </p>
-    </header>
+    <p>
+      <strong>🚧 Website in progress.</strong><br />
+      Client work and product development are active.
+    </p>
 
-    <!-- PRODUCT -->
-    <section class="product">
-      <h2>Featured Product</h2>
+    <div class="footer">
+      © <span id="year"></span> JAB Systems
+    </div>
+  </main>
 
-      <div class="product-card">
-        <div class="product-text">
-          <h3>JAB Admin Toolkit</h3>
-          <p>
-            A unified administrative toolkit covering system health, network diagnostics,
-            storage hygiene, SQL operations, and application analysis.
-          </p>
-          <p class="launch">
-            Planned public launch: <strong>March 1, 2026</strong>
-          </p>
-        </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
-        <div class="product-image">
-          <img src="assets/toolkit-preview.png" alt="JAB Admin Toolkit Preview" />
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section class="services">
-      <h2>What We Do</h2>
-      <ul>
-        <li>Custom internal tools for small and mid-sized businesses</li>
-        <li>Operational automation to reduce manual work and risk</li>
-        <li>System and data observability designed for production use</li>
-      </ul>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <p>
-        For inquiries or early access discussions:
-        <a href=
+</body>
+</html>

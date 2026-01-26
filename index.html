@@ -7,14 +7,178 @@
   <title>JAB Systems — Enterprise Tooling & Automation</title>
 
   <meta name="description"
-        content="JAB Systems builds enterprise-grade administration tools and custom automation for small and mid-sized businesses." />
+        content="JAB Systems builds enterprise-grade administration tools and custom automation for real-world environments." />
 
   <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111822;
+      --text: #f5f7fa;
+      --muted: #9aa7b8;
+      --accent: #3aa0ff;
+      --accent-soft: rgba(58,160,255,0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at top, #111827 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    /* HERO */
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 4rem;
+      position: relative;
+    }
+
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, var(--accent-soft), transparent 65%);
+      margin-bottom: 2.5rem;
+    }
+
+    .logo {
+      width: 110px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 18px rgba(58,160,255,0.35));
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      margin: 0 0 1.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subheadline {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--accent),
+        transparent
+      );
+      margin: 2.8rem auto 0;
+      opacity: 0.8;
+    }
+
+    /* PRODUCT */
+
+    .product {
+      margin-top: 4rem;
+    }
+
+    .product h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.8rem;
+      text-align: center;
+    }
+
+    .product-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2.5rem;
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .product-text h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    .launch {
+      margin-top: 1.2rem;
+      color: var(--muted);
+    }
+
+    .product-image img {
+      width: 100%;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    /* SERVICES */
+
+    .services {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .services ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem auto 0;
+      max-width: 520px;
+    }
+
+    .services li {
+      margin-bottom: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
+      .product-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -22,7 +186,9 @@
 
     <!-- HERO -->
     <header class="hero">
-      <img src="assets/jab-logo.png" alt="JAB Systems Logo" class="logo" />
+      <div class="logo-wrap">
+        <img src="/assets/jab-icon.png" alt="JAB Systems Logo" class="logo" />
+      </div>
 
       <h1>Enterprise System Tooling.<br />Built by Operators.</h1>
 
@@ -31,9 +197,7 @@
         and automation for real-world environments.
       </p>
 
-      <p class="status">
-        🚧 Website in progress. Client work and product development are active.
-      </p>
+      <div class="hero-divider"></div>
     </header>
 
     <!-- PRODUCT -->
@@ -44,8 +208,9 @@
         <div class="product-text">
           <h3>JAB Admin Toolkit</h3>
           <p>
-            A unified administrative toolkit covering system health, network diagnostics,
-            storage hygiene, SQL operations, and application analysis.
+            A unified administrative toolkit covering system health,
+            network diagnostics, storage hygiene, SQL operations,
+            and application analysis.
           </p>
           <p class="launch">
             Planned public launch: <strong>March 1, 2026</strong>
@@ -53,7 +218,7 @@
         </div>
 
         <div class="product-image">
-          <img src="assets/toolkit-preview.png" alt="JAB Admin Toolkit Preview" />
+          <img src="/assets/toolkit-preview.png" alt="JAB Admin Toolkit Preview" />
         </div>
       </div>
     </section>
@@ -72,4 +237,10 @@
     <footer class="footer">
       <p>
         For inquiries or early access discussions:
-        <a href=
+        <a href="mailto:info@jabsystems.io">info@jabsystems.io</a>
+      </p>
+    </footer>
+
+  </main>
+</body>
+</html>

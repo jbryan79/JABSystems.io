@@ -1,0 +1,443 @@
+/* ========================================
+   JAB Systems - Tools Grid & Detail Pages
+   ======================================== */
+
+/* -------------------- TOOLS GRID -------------------- */
+
+.tools-section {
+  margin-top: 4rem;
+}
+
+.tools-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* -------------------- TOOL CARD -------------------- */
+
+.tool-card {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(58, 160, 255, 0.15);
+  border-color: rgba(58, 160, 255, 0.25);
+}
+
+.tool-card__icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.2rem;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.tool-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.6rem;
+}
+
+.tool-card__desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.tool-card__status {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+}
+
+.tool-card__status--available {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.tool-card__status--coming-soon {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.tool-card__status--beta {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+/* Coming Soon card - muted style */
+.tool-card--placeholder {
+  opacity: 0.7;
+}
+
+.tool-card--placeholder:hover {
+  opacity: 1;
+}
+
+/* -------------------- MODAL -------------------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 90%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s ease;
+}
+
+.modal-backdrop.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.modal__close:hover {
+  color: var(--text);
+}
+
+.modal__icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+}
+
+.modal__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.modal__subtitle {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.modal__fact {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.modal__fact-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* -------------------- DETAIL PAGE -------------------- */
+
+.tool-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.back-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Detail Hero */
+.tool-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tool-hero__icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  border-radius: 16px;
+  filter: drop-shadow(0 0 20px rgba(58, 160, 255, 0.3));
+}
+
+.tool-hero__title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  margin: 0 0 0.8rem;
+}
+
+.tool-hero__tagline {
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}
+
+.tool-hero__status {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+/* -------------------- SCREENSHOT CAROUSEL -------------------- */
+
+.screenshot-section {
+  margin-bottom: 4rem;
+}
+
+.screenshot-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.screenshot-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.5rem 0 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.screenshot-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.screenshot-carousel::-webkit-scrollbar-track {
+  background: var(--panel);
+  border-radius: 4px;
+}
+
+.screenshot-carousel::-webkit-scrollbar-thumb {
+  background: var(--accent-soft);
+  border-radius: 4px;
+}
+
+.screenshot-carousel::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.screenshot-item {
+  flex: 0 0 auto;
+  width: min(500px, 85vw);
+  scroll-snap-align: center;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.screenshot-item:hover {
+  border-color: rgba(58, 160, 255, 0.3);
+  transform: scale(1.02);
+}
+
+.screenshot-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+}
+
+/* Carousel navigation (optional) */
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.carousel-nav button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.carousel-nav button:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+/* -------------------- FEATURES GRID -------------------- */
+
+.features-section {
+  margin-bottom: 4rem;
+}
+
+.features-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.feature-card__icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.feature-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.feature-card__desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* -------------------- CTA SECTION -------------------- */
+
+.cta-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--panel);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.cta-section h2 {
+  font-size: 1.6rem;
+  margin: 0 0 0.8rem;
+}
+
+.cta-section p {
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+.cta-button {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.9rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background: #2b8ce6;
+  transform: translateY(-2px);
+}
+
+/* -------------------- RESPONSIVE -------------------- */
+
+@media (max-width: 600px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .screenshot-item {
+    width: 90vw;
+  }
+
+  .modal {
+    padding: 1.5rem;
+  }
+}

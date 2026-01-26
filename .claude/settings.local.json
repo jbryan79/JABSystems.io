@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"New-Item -Path ''C:\\\\Users\\\\james\\\\Projects\\\\JABSystems\\\\tools\\\\admin-toolkit'' -ItemType Directory -Force; New-Item -Path ''C:\\\\Users\\\\james\\\\Projects\\\\JABSystems\\\\js'' -ItemType Directory -Force\")",
+      "Bash(powershell -Command:*)"
+    ]
+  }
+}

@@ -352,6 +352,174 @@
         padding: 2rem 1.5rem;
       }
     }
+
+    /* ============ CONTACT FORM MODAL ============ */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 2.5rem;
+      max-width: 450px;
+      width: 90%;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-backdrop.active .modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      line-height: 1;
+      transition: color 0.2s ease;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal__close:hover {
+      color: var(--text);
+    }
+
+    .modal__title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+    }
+
+    .modal__subtitle {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3);
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-submit {
+      margin-top: 0.5rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .form-submit:hover {
+      background: #2d8ae0;
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .form-success svg {
+      width: 48px;
+      height: 48px;
+      color: #22c55e;
+      margin-bottom: 1rem;
+    }
+
+    .form-success h4 {
+      font-size: 1.25rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .form-success p {
+      color: var(--muted);
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -490,10 +658,63 @@
     <section class="cta-section">
       <h2>Get Early Access</h2>
       <p>Be the first to know when JAB Admin Toolkit launches.</p>
-      <a href="mailto:info@jabsystems.io?subject=Early Access - JAB Admin Toolkit" class="cta-button">
+      <a href="#" class="cta-button" onclick="openContactModal('JAB Admin Toolkit'); return false;">
         Request Early Access
       </a>
     </section>
+
+    <!-- Contact Form Modal -->
+    <div class="modal-backdrop" id="contact-modal" onclick="closeContactModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <button class="modal__close" onclick="closeContactModal()">&times;</button>
+        <h3 class="modal__title">Get Early Access</h3>
+        <p class="modal__subtitle">JAB Admin Toolkit</p>
+
+        <form id="contact-form" class="contact-form" name="early-access" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="early-access">
+          <input type="hidden" name="source-page" value="admin-toolkit">
+          <p style="display:none;">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </p>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="you@company.com">
+          </div>
+
+          <div class="form-group">
+            <label for="interest">Interest</label>
+            <select id="interest" name="interest" required>
+              <option value="">Select a tool...</option>
+              <option value="JAB Admin Toolkit" selected>JAB Admin Toolkit</option>
+              <option value="Network Monitor">Network Monitor</option>
+              <option value="Log Analyzer">Log Analyzer</option>
+              <option value="General Interest">General Interest</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message (optional)</label>
+            <textarea id="message" name="message" placeholder="Tell us about your use case..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Submit Request</button>
+        </form>
+
+        <div id="form-success" class="form-success" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h4>Request Received</h4>
+          <p>We'll be in touch soon with early access details.</p>
+        </div>
+      </div>
+    </div>
 
     <!-- Cross-link to Free Tool -->
     <section class="cross-link-section">
@@ -511,8 +732,7 @@
     <!-- Footer -->
     <footer class="footer">
       <p>
-        Questions? Contact us at
-        <a href="mailto:info@jabsystems.io">info@jabsystems.io</a>
+        Questions? <a href="#" onclick="openContactModal('JAB Admin Toolkit'); return false;">Get in touch</a>
       </p>
     </footer>
 
@@ -530,6 +750,85 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') scrollCarousel(-1);
       if (e.key === 'ArrowRight') scrollCarousel(1);
+      if (e.key === 'Escape') closeContactModal();
+    });
+
+    // Contact modal functions
+    function openContactModal(preselectedTool) {
+      const modal = document.getElementById('contact-modal');
+      if (!modal) return;
+
+      const form = document.getElementById('contact-form');
+      const successMessage = document.getElementById('form-success');
+      if (form) {
+        form.style.display = 'flex';
+        form.reset();
+        // Re-select the pre-selected tool after reset
+        if (preselectedTool) {
+          const interestSelect = document.getElementById('interest');
+          if (interestSelect) interestSelect.value = preselectedTool;
+        }
+      }
+      if (successMessage) {
+        successMessage.style.display = 'none';
+      }
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(() => {
+        const firstInput = modal.querySelector('input[type="text"]');
+        if (firstInput) firstInput.focus();
+      }, 100);
+    }
+
+    function closeContactModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+
+      const modal = document.getElementById('contact-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Handle form submission
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const submitBtn = form.querySelector('.form-submit');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+
+          try {
+            const formData = new FormData(form);
+            const response = await fetch('/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams(formData).toString()
+            });
+
+            if (response.ok) {
+              form.style.display = 'none';
+              const successMessage = document.getElementById('form-success');
+              if (successMessage) {
+                successMessage.style.display = 'block';
+              }
+            } else {
+              throw new Error('Form submission failed');
+            }
+          } catch (error) {
+            console.error('Form error:', error);
+            alert('There was an error submitting the form. Please try again.');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+      }
     });
   </script>
 </body>

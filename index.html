@@ -452,6 +452,101 @@
       margin: 0;
     }
 
+    /* ============ CONTACT FORM MODAL ============ */
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3);
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-submit {
+      margin-top: 0.5rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .form-submit:hover {
+      background: #2d8ae0;
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .form-success svg {
+      width: 48px;
+      height: 48px;
+      color: #22c55e;
+      margin-bottom: 1rem;
+    }
+
+    .form-success h4 {
+      font-size: 1.25rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .form-success p {
+      color: var(--muted);
+      margin: 0;
+    }
+
     /* ============ SERVICES ============ */
 
     .services {
@@ -607,7 +702,7 @@
       <img src="assets/jab-logo.png" alt="JAB Systems" />
       <span>JAB Systems</span>
     </a>
-    <a href="mailto:info@jabsystems.io" class="nav-cta">Get Early Access</a>
+    <a href="#" class="nav-cta" onclick="openContactModal(); return false;">Get Early Access</a>
   </nav>
 
   <!-- HERO -->
@@ -623,7 +718,7 @@
         <button class="btn btn-primary" onclick="document.querySelector('.tools-section').scrollIntoView({behavior: 'smooth'});">
           Explore Tools
         </button>
-        <a href="mailto:info@jabsystems.io" class="btn btn-ghost">
+        <a href="#" class="btn btn-ghost" onclick="openContactModal(); return false;">
           Get Early Access
         </a>
       </div>
@@ -697,6 +792,58 @@
       </div>
     </div>
 
+    <!-- Contact Form Modal -->
+    <div class="modal-backdrop" id="contact-modal" onclick="closeContactModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <button class="modal__close" onclick="closeContactModal()">&times;</button>
+        <h3 class="modal__title">Get Early Access</h3>
+        <p class="modal__subtitle">Be the first to know</p>
+
+        <form id="contact-form" class="contact-form" name="early-access" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="early-access">
+          <p style="display:none;">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </p>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="you@company.com">
+          </div>
+
+          <div class="form-group">
+            <label for="interest">Interest</label>
+            <select id="interest" name="interest" required>
+              <option value="">Select a tool...</option>
+              <option value="JAB Admin Toolkit">JAB Admin Toolkit</option>
+              <option value="Network Monitor">Network Monitor</option>
+              <option value="Log Analyzer">Log Analyzer</option>
+              <option value="General Interest">General Interest</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message (optional)</label>
+            <textarea id="message" name="message" placeholder="Tell us about your use case..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Submit Request</button>
+        </form>
+
+        <div id="form-success" class="form-success" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h4>Request Received</h4>
+          <p>We'll be in touch soon with early access details.</p>
+        </div>
+      </div>
+    </div>
+
     <!-- FREE UTILITIES -->
     <section class="tools-section free-utilities-section">
       <div class="section-header">
@@ -733,7 +880,7 @@
     <footer class="footer">
       <p>
         For inquiries or early access discussions:<br>
-        <a href="mailto:info@jabsystems.io">info@jabsystems.io</a>
+        <a href="#" onclick="openContactModal(); return false;">Request Early Access</a>
       </p>
     </footer>
 

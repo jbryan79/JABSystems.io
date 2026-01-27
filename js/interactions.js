@@ -61,6 +61,94 @@ function closeModal(event) {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeModal();
+    closeContactModal();
+  }
+});
+
+// ============ CONTACT FORM MODAL ============
+
+// Open contact modal
+function openContactModal(preselectedTool) {
+  const modal = document.getElementById('contact-modal');
+  if (!modal) return;
+
+  // Reset form state
+  const form = document.getElementById('contact-form');
+  const successMessage = document.getElementById('form-success');
+  if (form) {
+    form.style.display = 'flex';
+    form.reset();
+  }
+  if (successMessage) {
+    successMessage.style.display = 'none';
+  }
+
+  // Pre-select tool if specified
+  if (preselectedTool) {
+    const interestSelect = document.getElementById('interest');
+    if (interestSelect) {
+      interestSelect.value = preselectedTool;
+    }
+  }
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // Focus first input
+  setTimeout(() => {
+    const firstInput = modal.querySelector('input[type="text"]');
+    if (firstInput) firstInput.focus();
+  }, 100);
+}
+
+// Close contact modal
+function closeContactModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+
+  const modal = document.getElementById('contact-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// Handle contact form submission
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector('.form-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
+        });
+
+        if (response.ok) {
+          // Show success message
+          form.style.display = 'none';
+          const successMessage = document.getElementById('form-success');
+          if (successMessage) {
+            successMessage.style.display = 'block';
+          }
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Form error:', error);
+        alert('There was an error submitting the form. Please try again.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
   }
 });
 

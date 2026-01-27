@@ -516,6 +516,14 @@
 </head>
 
 <body>
+  <!-- Hidden form for Netlify detection (required for AJAX submissions) -->
+  <form name="download-request" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="hidden" name="tool" />
+    <textarea name="message"></textarea>
+  </form>
+
   <main class="tool-detail">
 
     <!-- Back Link -->
@@ -749,7 +757,7 @@
 
           try {
             const formData = new FormData(form);
-            const response = await fetch('/', {
+            const response = await fetch(form.getAttribute('action') || location.pathname, {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
               body: new URLSearchParams(formData).toString()

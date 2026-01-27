@@ -354,10 +354,21 @@
 
     .free-utilities-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: 1fr;
       gap: 2rem;
-      max-width: 700px;
+      max-width: 400px;
       margin: 0 auto;
+    }
+
+    .free-utilities-grid .tool-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      text-decoration: none;
+      color: inherit;
     }
 
     /* ============ MODAL ============ */

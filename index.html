@@ -33,7 +33,7 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: radial-gradient(circle at top, #111827 0%, var(--bg) 55%);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
@@ -41,106 +41,119 @@
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 4rem 1.5rem;
+      padding: 0 1.5rem 4rem;
     }
 
-    /* ============ HERO - VERSION C ============ */
-    /* Logo as visual anchor with strategic negative space */
+    /* ============ NAV BAR ============ */
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .nav-logo span {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-cta {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ============ HERO - HEADLINE DRIVEN ============ */
 
     .hero {
-      text-align: center;
-      padding: 3rem 1rem 4rem;
       position: relative;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    /* Logo positioned as visual anchor on left */
-    .logo-anchor {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
-    }
-
-    .logo-wrap {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Subtle reflection/depth layer */
-    .logo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: radial-gradient(circle at center, var(--accent-soft), transparent 70%);
-      filter: blur(30px);
-      z-index: -1;
-    }
-
-    /* Reflection effect below logo */
-    .logo-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 180px;
-      height: 80px;
-      background: linear-gradient(to bottom, rgba(58,160,255,0.1), transparent);
-      border-radius: 50%;
-      filter: blur(20px);
-    }
-
-    .logo {
-      width: 180px;
-      height: auto;
-      display: block;
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 8px 24px rgba(58,160,255,0.4))
-              drop-shadow(0 0 40px rgba(58,160,255,0.2));
-      animation: logoFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    /* Content grid on right */
-    .hero-content {
-      text-align: left;
+      min-height: calc(100vh - 80px);
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding: 4rem 1.5rem 6rem;
+      overflow: hidden;
+    }
+
+    /* Infrastructure grid background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(58,160,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(58,160,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Grid node intersections */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(58,160,255,0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 10%, transparent 60%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 10%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
     }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-size: clamp(2.4rem, 6vw, 4rem);
       font-weight: 700;
-      margin: 0 0 1.2rem;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
     }
 
-    .hero h1 br {
-      display: none;
+    .hero h1 .accent {
+      color: var(--accent);
     }
 
     .subheadline {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       color: var(--muted);
-      margin: 0 0 2rem;
-      line-height: 1.6;
+      margin: 0 0 2.5rem;
+      line-height: 1.7;
+      max-width: 540px;
     }
 
     .hero-cta {
@@ -150,15 +163,14 @@
     }
 
     .btn {
-      padding: 0.85rem 1.8rem;
-      border-radius: 10px;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
       border: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.3s ease;
-      letter-spacing: 0.02em;
+      transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -171,33 +183,53 @@
 
     .btn-primary:hover {
       background: #2d8ae0;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(58,160,255,0.3);
+      transform: translateY(-1px);
     }
 
-    .btn-secondary {
+    .btn-ghost {
       background: transparent;
-      border: 1.5px solid var(--accent);
-      color: var(--accent);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text);
     }
 
-    .btn-secondary:hover {
-      background: var(--accent-soft);
-      transform: translateY(-2px);
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.03);
     }
 
-    .hero-divider {
-      width: 60px;
-      height: 2px;
-      background: var(--accent);
-      margin: 2rem 0 0;
-      opacity: 0.8;
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .scroll-indicator svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
     }
 
     /* ============ TOOLS SECTION ============ */
 
     .tools-section {
-      margin-top: 5rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
     }
 
     .section-header {
@@ -238,24 +270,10 @@
       overflow: hidden;
     }
 
-    .tool-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--accent-soft), transparent);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      z-index: 0;
-    }
-
     .tool-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(58,160,255,0.2);
-      border-color: rgba(58,160,255,0.35);
-    }
-
-    .tool-card:hover::before {
-      opacity: 1;
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
 
     .tool-card-content {
@@ -411,42 +429,45 @@
     /* ============ SERVICES ============ */
 
     .services {
-      margin-top: 5rem;
-      text-align: center;
-      padding: 3rem 0;
+      margin-top: 6rem;
+      padding: 4rem 0 3rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
     }
 
     .services h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0 0 2rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0 0 2.5rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
     }
 
     .services ul {
       list-style: none;
       padding: 0;
       margin: 0 auto;
-      max-width: 600px;
+      max-width: 800px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
 
     .services li {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.6;
-      padding: 1.5rem;
-      background: var(--panel);
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.04);
-      transition: all 0.3s ease;
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding: 1.25rem 1rem;
+      background: transparent;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      transition: border-color 0.2s ease;
     }
 
     .services li:hover {
-      border-color: rgba(58,160,255,0.2);
-      background: rgba(58,160,255,0.05);
-      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.12);
     }
 
     /* ============ FOOTER ============ */
@@ -475,39 +496,57 @@
 
     @media (max-width: 900px) {
       .hero {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        min-height: calc(100vh - 70px);
+        padding: 3rem 1.5rem 5rem;
       }
 
-      .hero-content {
-        text-align: center;
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
       }
 
-      .logo-anchor {
-        min-height: 240px;
-      }
-
-      .logo-wrap {
-        width: 160px;
-        height: 160px;
-      }
-
-      .logo {
-        width: 140px;
+      .subheadline {
+        font-size: 1.05rem;
       }
     }
 
     @media (max-width: 640px) {
       .container {
-        padding: 2rem 1rem;
+        padding: 0 1rem 2rem;
+      }
+
+      .nav {
+        padding: 1rem;
+      }
+
+      .nav-logo span {
+        display: none;
       }
 
       .hero {
-        padding: 2rem 1rem;
+        min-height: calc(100vh - 60px);
+        padding: 2rem 1rem 4rem;
       }
 
       .hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.9rem;
+      }
+
+      .subheadline {
+        font-size: 1rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .scroll-indicator {
+        bottom: 1.5rem;
       }
 
       .tools-grid {
@@ -519,13 +558,13 @@
         padding: 1.5rem;
       }
 
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
-
       .services ul {
         grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .services li {
+        padding: 1rem;
       }
 
       .modal {
@@ -536,37 +575,44 @@
 </head>
 
 <body>
+  <!-- NAV BAR -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/jab-logo.png" alt="JAB Systems" />
+      <span>JAB Systems</span>
+    </a>
+    <a href="mailto:info@jabsystems.io" class="nav-cta">Get Early Access</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Enterprise Tools<br><span class="accent">Built by Operators.</span></h1>
+
+      <p class="subheadline">
+        Production-ready administration tools and automation for real-world environments. Customizable modules. Updatable themes. Built for the people who keep systems running.
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="document.querySelector('.tools-section').scrollIntoView({behavior: 'smooth'});">
+          Explore Tools
+        </button>
+        <a href="mailto:info@jabsystems.io" class="btn btn-ghost">
+          Get Early Access
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </div>
+  </header>
+
   <main class="container">
-
-    <!-- HERO - VERSION C -->
-    <header class="hero">
-      <!-- Logo as visual anchor (left) -->
-      <div class="logo-anchor">
-        <div class="logo-wrap">
-          <img src="assets/jab-logo.png" alt="JAB Systems Logo" class="logo" />
-        </div>
-      </div>
-
-      <!-- Content (right) -->
-      <div class="hero-content">
-        <h1>Enterprise System Tooling.<br>Built by Operators.</h1>
-        
-        <p class="subheadline">
-          JAB Systems designs and delivers production-ready administration tools and automation for real-world environments.
-        </p>
-
-        <div class="hero-cta">
-          <button class="btn btn-primary" onclick="document.querySelector('.tools-section').scrollIntoView();">
-            Explore Tools
-          </button>
-          <a href="mailto:info@jabsystems.io" class="btn btn-secondary">
-            Get in Touch
-          </a>
-        </div>
-
-        <div class="hero-divider"></div>
-      </div>
-    </header>
 
     <!-- TOOLS -->
     <section class="tools-section">
@@ -629,9 +675,9 @@
     <section class="services">
       <h2>What We Do</h2>
       <ul>
-        <li>Custom internal tools for small and mid-sized businesses</li>
-        <li>Operational automation to reduce manual work and risk</li>
-        <li>System and data observability designed for production use</li>
+        <li>Internal tooling that works on day one</li>
+        <li>Automation built for production constraints</li>
+        <li>Observability designed by operators</li>
       </ul>
     </section>
 

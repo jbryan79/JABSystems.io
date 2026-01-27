@@ -64,7 +64,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Prevent scroll when modal is open
+// DOM ready initialization
 document.addEventListener('DOMContentLoaded', () => {
   // Add smooth entrance animation to cards on page load
   const cards = document.querySelectorAll('.tool-card');
@@ -78,4 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = '';
     }, 100 + (index * 100));
   });
+
+  // Scroll indicator - hide after scrolling
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (scrollIndicator) {
+    let hasScrolled = false;
+    window.addEventListener('scroll', () => {
+      if (!hasScrolled && window.scrollY > 100) {
+        hasScrolled = true;
+        scrollIndicator.style.opacity = '0';
+        scrollIndicator.style.transition = 'opacity 0.3s ease';
+      }
+    }, { passive: true });
+  }
 });

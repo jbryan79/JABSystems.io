@@ -30,7 +30,7 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: radial-gradient(circle at top, #111827 0%, var(--bg) 55%);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
@@ -68,40 +68,43 @@
     /* HERO */
 
     .tool-hero {
-      text-align: center;
       margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
     .tool-hero__icon {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 1.5rem;
-      border-radius: 16px;
-      filter: drop-shadow(0 0 20px rgba(58,160,255,0.3));
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      opacity: 0.8;
     }
 
     .tool-hero__title {
-      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-size: clamp(2rem, 4vw, 2.6rem);
       font-weight: 700;
-      margin: 0 0 0.8rem;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
     }
 
     .tool-hero__tagline {
       color: var(--muted);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 1.5rem;
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 0 1.5rem;
+      line-height: 1.6;
     }
 
     .tool-hero__status {
       display: inline-block;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      background: rgba(251,191,36,0.15);
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      background: rgba(251,191,36,0.12);
       color: #fbbf24;
     }
 
@@ -156,8 +159,7 @@
     }
 
     .screenshot-item:hover {
-      border-color: rgba(58,160,255,0.3);
-      transform: scale(1.02);
+      border-color: rgba(255,255,255,0.12);
     }
 
     .screenshot-item img {
@@ -220,8 +222,7 @@
     }
 
     .feature-card:hover {
-      border-color: rgba(58,160,255,0.15);
-      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.08);
     }
 
     .feature-card__icon {
@@ -277,7 +278,6 @@
 
     .cta-button:hover {
       background: #2b8ce6;
-      transform: translateY(-2px);
     }
 
     /* FOOTER */
@@ -331,13 +331,12 @@
 
     <!-- Hero -->
     <section class="tool-hero">
-      <img src="../../assets/jab-logo.png" alt="JAB Admin Toolkit" class="tool-hero__icon" />
+      <img src="../../assets/jab-logo.png" alt="" class="tool-hero__icon" />
       <h1 class="tool-hero__title">JAB Admin Toolkit</h1>
       <p class="tool-hero__tagline">
-        A unified administrative toolkit covering system health, network diagnostics,
-        storage hygiene, SQL operations, and application analysis.
+        Unified administrative toolkit for system health, network diagnostics, storage hygiene, SQL operations, and application analysis. One interface. Everything you need.
       </p>
-      <span class="tool-hero__status">Launching March 2026</span>
+      <span class="tool-hero__status">March 2026</span>
     </section>
 
     <!-- Screenshots -->

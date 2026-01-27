@@ -577,7 +577,7 @@
 
       <div class="tools-grid">
         <!-- JAB Admin Toolkit - Available -->
-        <div class="tool-card">
+        <a href="tools/admin-toolkit/index.html" class="tool-card">
           <div class="tool-card-content">
             <img src="assets/jab-logo.png" alt="JAB Admin Toolkit" class="tool-card__icon" />
             <h3 class="tool-card__title">JAB Admin Toolkit</h3>
@@ -586,10 +586,10 @@
             </p>
             <span class="tool-card__status tool-card__status--available">March 2026</span>
           </div>
-        </div>
+        </a>
 
         <!-- Network Monitor - Coming Soon -->
-        <div class="tool-card tool-card--placeholder" onclick="openModal(this)">
+        <div class="tool-card tool-card--placeholder" data-tool="network-monitor" onclick="openModal(this)">
           <div class="tool-card-content">
             <img src="assets/jab-logo.png" alt="Coming Soon" class="tool-card__icon" style="opacity: 0.6;" />
             <h3 class="tool-card__title">Network Monitor</h3>
@@ -601,7 +601,7 @@
         </div>
 
         <!-- Log Analyzer - Coming Soon -->
-        <div class="tool-card tool-card--placeholder" onclick="openModal(this)">
+        <div class="tool-card tool-card--placeholder" data-tool="log-analyzer" onclick="openModal(this)">
           <div class="tool-card-content">
             <img src="assets/jab-logo.png" alt="Coming Soon" class="tool-card__icon" style="opacity: 0.6;" />
             <h3 class="tool-card__title">Log Analyzer</h3>
@@ -645,43 +645,6 @@
 
   </main>
 
-  <script>
-    // Modal functionality
-    const modalBackdrop = document.getElementById('modal-backdrop');
-    const modalTitle = document.getElementById('modal-title');
-    const modalFact = document.getElementById('modal-fact');
-
-    const toolFacts = {
-      'network-monitor': {
-        title: 'Network Monitor',
-        fact: 'Production network monitoring requires precision. We\'re building tools that give operators real visibility without the noise.'
-      },
-      'log-analyzer': {
-        title: 'Log Analyzer',
-        fact: 'Finding the signal in millions of log entries is a superpower. Our intelligent parsing cuts through the chaos.'
-      }
-    };
-
-    function openModal(element) {
-      const toolName = element.dataset.tool || 'tool';
-      const toolData = toolFacts[toolName] || { title: 'Coming Soon', fact: 'Stay tuned for updates.' };
-      
-      modalTitle.textContent = toolData.title;
-      modalFact.textContent = toolData.fact;
-      modalBackdrop.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(event) {
-      if (event && event.target !== modalBackdrop) return;
-      modalBackdrop.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-  </script>
+  <script src="js/interactions.js"></script>
 </body>
 </html>

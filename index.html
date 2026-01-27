@@ -334,6 +334,32 @@
       opacity: 1;
     }
 
+    .tool-card__status--free {
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+
+    /* ============ FREE UTILITIES SECTION ============ */
+
+    .free-utilities-section {
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .free-utilities-section .section-subtext {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .free-utilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
     /* ============ MODAL ============ */
 
     .modal-backdrop {
@@ -670,6 +696,28 @@
         <p class="modal__fact" id="modal-fact">We're building tools that operators actually want to use. These are coming in 2026.</p>
       </div>
     </div>
+
+    <!-- FREE UTILITIES -->
+    <section class="tools-section free-utilities-section">
+      <div class="section-header">
+        <h2>Free Utilities</h2>
+        <p class="section-subtext">Small, safe tools built to inspect and understand systems—without risk.</p>
+      </div>
+
+      <div class="free-utilities-grid">
+        <!-- JAB Drive Hygiene Check - Free -->
+        <a href="tools/drive-hygiene/index.html" class="tool-card">
+          <div class="tool-card-content">
+            <img src="assets/jab-logo.png" alt="JAB Drive Hygiene Check" class="tool-card__icon" />
+            <h3 class="tool-card__title">JAB Drive Hygiene Check</h3>
+            <p class="tool-card__desc">
+              A safe, read-only disk inspection and cleanup utility built on native Windows tooling. No registry edits. No drivers. No surprises.
+            </p>
+            <span class="tool-card__status tool-card__status--free">Free</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
     <!-- SERVICES -->
     <section class="services">

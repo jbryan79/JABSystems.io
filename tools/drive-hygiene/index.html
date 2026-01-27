@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>JAB Drive Hygiene Check — JAB Systems</title>
+
+  <meta name="description"
+        content="A safe, read-only disk inspection and cleanup utility. No registry edits. No drivers. No surprises." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../assets/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../../assets/favicon.ico" type="image/x-icon" />
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111822;
+      --text: #f5f7fa;
+      --muted: #9aa7b8;
+      --accent: #3aa0ff;
+      --accent-soft: rgba(58,160,255,0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* LAYOUT */
+
+    .tool-detail {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* BACK LINK */
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* HERO */
+
+    .tool-hero {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .tool-hero__icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      opacity: 0.8;
+    }
+
+    .tool-hero__title {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      font-weight: 700;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .tool-hero__tagline {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 0 1.5rem;
+      line-height: 1.6;
+    }
+
+    .tool-hero__status {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+
+    /* CONTENT SECTIONS */
+
+    .content-section {
+      margin-bottom: 3rem;
+    }
+
+    .content-section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+
+    .content-section p {
+      color: var(--muted);
+      margin: 0 0 1rem;
+      line-height: 1.7;
+    }
+
+    .content-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .content-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .content-section li {
+      color: var(--muted);
+      padding: 0.6rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .content-section li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    /* DOES NOT DO - Warning style */
+
+    .does-not-section {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .does-not-section h2 {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+
+    .does-not-section li::before {
+      background: var(--muted);
+      opacity: 0.4;
+    }
+
+    /* FEATURES GRID */
+
+    .features-section {
+      margin-bottom: 3rem;
+    }
+
+    .features-section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .feature-card {
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: border-color 0.2s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .feature-card__icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .feature-card__title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.4rem;
+    }
+
+    .feature-card__desc {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* CTA */
+
+    .cta-section {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      background: var(--panel);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-bottom: 3rem;
+    }
+
+    .cta-section h2 {
+      font-size: 1.4rem;
+      margin: 0 0 0.6rem;
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: #2b8ce6;
+      transform: translateY(-1px);
+    }
+
+    .cta-button svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* CROSS-LINK */
+
+    .cross-link-section {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .cross-link-section p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0 0 1rem;
+      line-height: 1.6;
+    }
+
+    .cross-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .cross-link:hover {
+      color: #2b8ce6;
+    }
+
+    .cross-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 600px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .does-not-section {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="tool-detail">
+
+    <!-- Back Link -->
+    <a href="../../index.html" class="back-link">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to Home
+    </a>
+
+    <!-- Hero -->
+    <section class="tool-hero">
+      <img src="../../assets/jab-logo.png" alt="" class="tool-hero__icon" />
+      <h1 class="tool-hero__title">JAB Drive Hygiene Check</h1>
+      <p class="tool-hero__tagline">
+        A safe, read-only disk inspection and cleanup utility built on native Windows tooling. Understand your storage before you act.
+      </p>
+      <span class="tool-hero__status">Free</span>
+    </section>
+
+    <!-- What This Tool Does -->
+    <section class="content-section">
+      <h2>What This Tool Does</h2>
+      <ul>
+        <li>Inspects disk health and SMART status across all connected drives</li>
+        <li>Reports TRIM and optimization status for SSDs</li>
+        <li>Provides a clear breakdown of disk usage by category</li>
+        <li>Identifies temporary files, system caches, and other cleanup candidates</li>
+        <li>Optionally invokes native Windows Disk Cleanup with pre-selected safe categories</li>
+      </ul>
+    </section>
+
+    <!-- What This Tool Does NOT Do -->
+    <section class="content-section does-not-section">
+      <h2>What This Tool Does Not Do</h2>
+      <ul>
+        <li>No promises of performance improvements or speed boosts</li>
+        <li>No background services or persistent agents</li>
+        <li>No registry modifications of any kind</li>
+        <li>No driver installations or kernel-level changes</li>
+        <li>No automated destructive actions without explicit confirmation</li>
+        <li>No telemetry, no data collection, no phone-home behavior</li>
+      </ul>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section">
+      <h2>Capabilities</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <h3 class="feature-card__title">Disk Inspection</h3>
+          <p class="feature-card__desc">
+            Read-only analysis of drive health, capacity, and file system state.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+          </svg>
+          <h3 class="feature-card__title">Usage Breakdown</h3>
+          <p class="feature-card__desc">
+            Clear categories showing what is consuming space and where.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="feature-card__title">SSD Health</h3>
+          <p class="feature-card__desc">
+            TRIM status, optimization state, and wear-level indicators for solid-state drives.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-card__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+          </svg>
+          <h3 class="feature-card__title">Safe Cleanup</h3>
+          <p class="feature-card__desc">
+            Uses native Windows Disk Cleanup with safe, pre-vetted categories only.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why This Exists -->
+    <section class="content-section">
+      <h2>Why This Exists</h2>
+      <p>
+        This tool was built during real production support work. When troubleshooting application issues, one of the first questions is always about disk state: Is there space? Is the drive healthy? Are temp files piling up?
+      </p>
+      <p>
+        Most cleanup utilities do too much. They promise speed boosts, modify registries, and run background agents. We wanted something operators could trust to run on any machine—inspection first, action second, always transparent.
+      </p>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>Download</h2>
+      <p>Windows 10/11. No installation required. Run it and see what you have.</p>
+      <a href="mailto:info@jabsystems.io?subject=Drive Hygiene Check Download" class="cta-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        Request Download Link
+      </a>
+    </section>
+
+    <!-- Cross-link to Admin Toolkit -->
+    <section class="cross-link-section">
+      <p>
+        If you find this useful, the same logic is expanded in the full Admin Toolkit—covering system health, network diagnostics, SQL operations, and more.
+      </p>
+      <a href="../admin-toolkit/index.html" class="cross-link">
+        Learn about JAB Admin Toolkit
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        Questions? Contact us at
+        <a href="mailto:info@jabsystems.io">info@jabsystems.io</a>
+      </p>
+    </footer>
+
+  </main>
+</body>
+</html>

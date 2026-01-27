@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAB Systems – Enterprise Tooling & Automation</title>
+  <meta name="description"
+        content="JAB Systems builds enterprise-grade administration tools and custom automation for real-world environments." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111822;
+      --text: #f5f7fa;
+      --muted: #9aa7b8;
+      --accent: #3aa0ff;
+      --accent-soft: rgba(58,160,255,0.25);
+      --accent-glow: rgba(58,160,255,0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ============ NAV BAR ============ */
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .nav-logo span {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-cta {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ============ HERO - HEADLINE DRIVEN ============ */
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 1.5rem 6rem;
+      overflow: hidden;
+    }
+
+    /* Infrastructure grid background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(58,160,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(58,160,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Grid node intersections */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(58,160,255,0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 10%, transparent 60%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 10%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+    }
+
+    .hero h1 .accent {
+      color: var(--accent);
+    }
+
+    .subheadline {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin: 0 0 2.5rem;
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: #2d8ae0;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.03);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .scroll-indicator svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ============ TOOLS SECTION ============ */
+
+    .tools-section {
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .tools-section h2 {
+      font-size: 2rem;
+      margin: 0 0 0.5rem;
+      font-weight: 700;
+    }
+
+    .section-subtext {
+      color: var(--muted);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .tool-card {
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .tool-card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Card logo - small but legible */
+    .tool-card__icon {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    .tool-card__title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 0.8rem;
+    }
+
+    .tool-card__desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0 0 1.5rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .tool-card__status {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+
+    .tool-card__status--available {
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+
+    .tool-card__status--coming-soon {
+      background: rgba(251,191,36,0.15);
+      color: #fbbf24;
+    }
+
+    .tool-card--placeholder {
+      opacity: 0.75;
+    }
+
+    .tool-card--placeholder:hover {
+      opacity: 1;
+    }
+
+    .tool-card__status--free {
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+
+    /* ============ FREE UTILITIES SECTION ============ */
+
+    .free-utilities-section {
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .free-utilities-section .section-subtext {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .free-utilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ============ MODAL ============ */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 2.5rem;
+      max-width: 450px;
+      width: 90%;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-backdrop.active .modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      line-height: 1;
+      transition: color 0.2s ease;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal__close:hover {
+      color: var(--text);
+    }
+
+    .modal__title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+    }
+
+    .modal__subtitle {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal__fact-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      display: block;
+      font-weight: 600;
+    }
+
+    .modal__fact {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ============ CONTACT FORM MODAL ============ */
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3);
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-submit {
+      margin-top: 0.5rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .form-submit:hover {
+      background: #2d8ae0;
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-success {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .form-success svg {
+      width: 48px;
+      height: 48px;
+      color: #22c55e;
+      margin-bottom: 1rem;
+    }
+
+    .form-success h4 {
+      font-size: 1.25rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .form-success p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ============ SERVICES ============ */
+
+    .services {
+      margin-top: 6rem;
+      padding: 4rem 0 3rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .services h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0 0 2.5rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    .services ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 800px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .services li {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding: 1.25rem 1rem;
+      background: transparent;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      transition: border-color 0.2s ease;
+    }
+
+    .services li:hover {
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    /* ============ FOOTER ============ */
+
+    .footer {
+      margin-top: 5rem;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+      color: #2d8ae0;
+    }
+
+    /* ============ RESPONSIVE ============ */
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: calc(100vh - 70px);
+        padding: 3rem 1.5rem 5rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+      }
+
+      .subheadline {
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 1rem 2rem;
+      }
+
+      .nav {
+        padding: 1rem;
+      }
+
+      .nav-logo span {
+        display: none;
+      }
+
+      .hero {
+        min-height: calc(100vh - 60px);
+        padding: 2rem 1rem 4rem;
+      }
+
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+
+      .subheadline {
+        font-size: 1rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .scroll-indicator {
+        bottom: 1.5rem;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .tool-card {
+        padding: 1.5rem;
+      }
+
+      .services ul {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .services li {
+        padding: 1rem;
+      }
+
+      .modal {
+        padding: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV BAR -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/jab-logo.png" alt="JAB Systems" />
+      <span>JAB Systems</span>
+    </a>
+    <a href="#" class="nav-cta" onclick="openContactModal(); return false;">Get Early Access</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Enterprise Tools<br><span class="accent">Built by Operators.</span></h1>
+
+      <p class="subheadline">
+        Production-ready administration tools and automation for real-world environments. Customizable modules. Updatable themes. Built for the people who keep systems running.
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="document.querySelector('.tools-section').scrollIntoView({behavior: 'smooth'});">
+          Explore Tools
+        </button>
+        <a href="#" class="btn btn-ghost" onclick="openContactModal(); return false;">
+          Get Early Access
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- TOOLS -->
+    <section class="tools-section">
+      <div class="section-header">
+        <h2>Our Tools</h2>
+        <p class="section-subtext">Production-ready administration and automation solutions</p>
+      </div>
+
+      <div class="tools-grid">
+        <!-- JAB Admin Toolkit - Available -->
+        <a href="tools/admin-toolkit/index.html" class="tool-card">
+          <div class="tool-card-content">
+            <img src="assets/jab-logo.png" alt="JAB Admin Toolkit" class="tool-card__icon" />
+            <h3 class="tool-card__title">JAB Admin Toolkit</h3>
+            <p class="tool-card__desc">
+              Unified administrative toolkit for system health, network diagnostics, storage hygiene, SQL operations, and application analysis.
+            </p>
+            <span class="tool-card__status tool-card__status--available">March 2026</span>
+          </div>
+        </a>
+
+        <!-- Network Monitor - Coming Soon -->
+        <div class="tool-card tool-card--placeholder" data-tool="network-monitor" onclick="openModal(this)">
+          <div class="tool-card-content">
+            <img src="assets/jab-logo.png" alt="Coming Soon" class="tool-card__icon" style="opacity: 0.6;" />
+            <h3 class="tool-card__title">Network Monitor</h3>
+            <p class="tool-card__desc">
+              Real-time network traffic analysis and alerting for production environments.
+            </p>
+            <span class="tool-card__status tool-card__status--coming-soon">Coming Soon</span>
+          </div>
+        </div>
+
+        <!-- Log Analyzer - Coming Soon -->
+        <div class="tool-card tool-card--placeholder" data-tool="log-analyzer" onclick="openModal(this)">
+          <div class="tool-card-content">
+            <img src="assets/jab-logo.png" alt="Coming Soon" class="tool-card__icon" style="opacity: 0.6;" />
+            <h3 class="tool-card__title">Log Analyzer</h3>
+            <p class="tool-card__desc">
+              Intelligent log parsing and pattern detection across distributed systems.
+            </p>
+            <span class="tool-card__status tool-card__status--coming-soon">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal for Coming Soon tools -->
+    <div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <button class="modal__close" onclick="closeModal()">&times;</button>
+        <h3 class="modal__title" id="modal-title">Coming Soon</h3>
+        <p class="modal__subtitle">Future Release</p>
+        <span class="modal__fact-label">Did you know?</span>
+        <p class="modal__fact" id="modal-fact">We're building tools that operators actually want to use. These are coming in 2026.</p>
+      </div>
+    </div>
+
+    <!-- Contact Form Modal -->
+    <div class="modal-backdrop" id="contact-modal" onclick="closeContactModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <button class="modal__close" onclick="closeContactModal()">&times;</button>
+        <h3 class="modal__title">Get Early Access</h3>
+        <p class="modal__subtitle">Be the first to know</p>
+
+        <form id="contact-form" class="contact-form" name="early-access" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="early-access">
+          <p style="display:none;">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </p>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="you@company.com">
+          </div>
+
+          <div class="form-group">
+            <label for="interest">Interest</label>
+            <select id="interest" name="interest" required>
+              <option value="">Select a tool...</option>
+              <option value="JAB Admin Toolkit">JAB Admin Toolkit</option>
+              <option value="Network Monitor">Network Monitor</option>
+              <option value="Log Analyzer">Log Analyzer</option>
+              <option value="General Interest">General Interest</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message (optional)</label>
+            <textarea id="message" name="message" placeholder="Tell us about your use case..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Submit Request</button>
+        </form>
+
+        <div id="form-success" class="form-success" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h4>Request Received</h4>
+          <p>We'll be in touch soon with early access details.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FREE UTILITIES -->
+    <section class="tools-section free-utilities-section">
+      <div class="section-header">
+        <h2>Free Utilities</h2>
+        <p class="section-subtext">Small, safe tools built to inspect and understand systems—without risk.</p>
+      </div>
+
+      <div class="free-utilities-grid">
+        <!-- JAB Drive Hygiene Check - Free -->
+        <a href="tools/drive-hygiene/index.html" class="tool-card">
+          <div class="tool-card-content">
+            <img src="assets/jab-logo.png" alt="JAB Drive Hygiene Check" class="tool-card__icon" />
+            <h3 class="tool-card__title">JAB Drive Hygiene Check</h3>
+            <p class="tool-card__desc">
+              A safe, read-only disk inspection and cleanup utility built on native Windows tooling. No registry edits. No drivers. No surprises.
+            </p>
+            <span class="tool-card__status tool-card__status--free">Free</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services">
+      <h2>What We Do</h2>
+      <ul>
+        <li>Internal tooling that works on day one</li>
+        <li>Automation built for production constraints</li>
+        <li>Observability designed by operators</li>
+      </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>
+        For inquiries or early access discussions:<br>
+        <a href="#" onclick="openContactModal(); return false;">Request Early Access</a>
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="js/interactions.js"></script>
+</body>
+</html>

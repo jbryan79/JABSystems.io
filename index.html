@@ -696,6 +696,14 @@
 </head>
 
 <body>
+  <!-- Hidden forms for Netlify detection (required for AJAX submissions) -->
+  <form name="early-access" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <select name="interest"></select>
+    <textarea name="message"></textarea>
+  </form>
+
   <!-- NAV BAR -->
   <nav class="nav">
     <a href="index.html" class="nav-logo">

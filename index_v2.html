@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>JAB Systems — Enterprise Tooling & Automation</title>
+
+  <meta name="description"
+        content="JAB Systems builds enterprise-grade administration tools and custom automation for real-world environments." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111822;
+      --text: #f5f7fa;
+      --muted: #9aa7b8;
+      --accent: #3aa0ff;
+      --accent-soft: rgba(58,160,255,0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at top, #111827 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    /* HERO */
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 4rem;
+      position: relative;
+    }
+
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, var(--accent-soft), transparent 65%);
+      margin-bottom: 2.5rem;
+    }
+
+    .logo {
+      width: 110px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 18px rgba(58,160,255,0.35));
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      margin: 0 0 1.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subheadline {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--accent),
+        transparent
+      );
+      margin: 2.8rem auto 0;
+      opacity: 0.8;
+    }
+
+    /* TOOLS GRID */
+
+    .tools-section {
+      margin-top: 4rem;
+    }
+
+    .tools-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 1.8rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(58,160,255,0.15);
+      border-color: rgba(58,160,255,0.25);
+    }
+
+    .tool-card__icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.2rem;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    .tool-card__title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 0.6rem;
+    }
+
+    .tool-card__desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0 0 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-card__status {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+    }
+
+    .tool-card__status--available {
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+
+    .tool-card__status--coming-soon {
+      background: rgba(251,191,36,0.15);
+      color: #fbbf24;
+    }
+
+    .tool-card--placeholder {
+      opacity: 0.7;
+    }
+
+    .tool-card--placeholder:hover {
+      opacity: 1;
+    }
+
+    /* MODAL */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 420px;
+      width: 90%;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      transform: scale(0.95) translateY(10px);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-backdrop.active .modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+
+    .modal__close:hover {
+      color: var(--text);
+    }
+
+    .modal__title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+    }
+
+    .modal__subtitle {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal__fact-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .modal__fact {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* SERVICES */
+
+    .services {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .services ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem auto 0;
+      max-width: 520px;
+    }
+
+    .services li {
+      margin-bottom: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 600px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="logo-wrap">
+        <img src="/assets/jab-icon.png" alt="JAB Systems Logo" class="logo" />
+      </div>
+
+      <h1>Enterprise System Tooling.<br />Built by Operators.</h1>
+
+      <p class="subheadline">
+        JAB Systems designs and delivers production-ready administration tools
+        and automation for real-world environments.
+      </p>
+
+      <div class="hero-divider"></div>
+    </header>
+
+    <!-- TOOLS -->
+    <section class="tools-section">
+      <h2>Our Tools</h2>
+
+      <div class="tools-grid">
+        <!-- JAB Admin Toolkit - Available -->
+        <a href="/tools/admin-toolkit/" class="tool-card">
+          <img src="/assets/jab-icon.png" alt="JAB Admin Toolkit" class="tool-card__icon" />
+          <h3 class="tool-card__title">JAB Admin Toolkit</h3>
+          <p class="tool-card__desc">
+            Unified administrative toolkit for system health, network diagnostics,
+            storage hygiene, SQL operations, and application analysis.
+          </p>
+          <span class="tool-card__status tool-card__status--coming-soon">March 2026</span>
+        </a>
+
+        <!-- Placeholder - Coming Soon -->
+        <div class="tool-card tool-card--placeholder" data-tool="network-monitor" onclick="openModal(this)">
+          <img src="/assets/jab-icon.png" alt="Coming Soon" class="tool-card__icon" style="opacity: 0.5;" />
+          <h3 class="tool-card__title">Network Monitor</h3>
+          <p class="tool-card__desc">
+            Real-time network traffic analysis and alerting for production environments.
+          </p>
+          <span class="tool-card__status tool-card__status--coming-soon">Coming Soon</span>
+        </div>
+
+        <!-- Placeholder - Coming Soon -->
+        <div class="tool-card tool-card--placeholder" data-tool="log-analyzer" onclick="openModal(this)">
+          <img src="/assets/jab-icon.png" alt="Coming Soon" class="tool-card__icon" style="opacity: 0.5;" />
+          <h3 class="tool-card__title">Log Analyzer</h3>
+          <p class="tool-card__desc">
+            Intelligent log parsing and pattern detection across distributed systems.
+          </p>
+          <span class="tool-card__status tool-card__status--coming-soon">Coming Soon</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal for Coming Soon tools -->
+    <div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <button class="modal__close" onclick="closeModal()">&times;</button>
+        <h3 class="modal__title" id="modal-title">Tool Name</h3>
+        <p class="modal__subtitle">Coming Soon</p>
+        <span class="modal__fact-label">Did you know?</span>
+        <p class="modal__fact" id="modal-fact">Fun fact goes here...</p>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="services">
+      <h2>What We Do</h2>
+      <ul>
+        <li>Custom internal tools for small and mid-sized businesses</li>
+        <li>Operational automation to reduce manual work and risk</li>
+        <li>System and data observability designed for production use</li>
+      </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>
+        For inquiries or early access discussions:
+        <a href="mailto:info@jabsystems.io">info@jabsystems.io</a>
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="/js/interactions.js"></script>
+</body>
+</html>

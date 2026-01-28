@@ -241,10 +241,10 @@ Write-Host ""
 Write-Host "  Output Files:" -ForegroundColor White
 
 if (Test-Path $ExePath) {
-    Write-Host "    • $ExePath" -ForegroundColor Gray
+    Write-Host "    - $ExePath" -ForegroundColor Gray
 }
 if (Test-Path $ZipPath) {
-    Write-Host "    • $ZipPath" -ForegroundColor Gray
+    Write-Host "    - $ZipPath" -ForegroundColor Gray
 }
 
 Write-Host ""
@@ -256,8 +256,8 @@ Write-Host "    Copyright:     $($ExeMetadata.copyright)" -ForegroundColor Gray
 Write-Host "    Version:       $($ExeMetadata.version)" -ForegroundColor Gray
 Write-Host ""
 Write-Host "  The ZIP package contains:" -ForegroundColor White
-Write-Host "    • JAB-DriveHygieneCheck.exe  (double-click to run)" -ForegroundColor Gray
-Write-Host "    • JAB-DriveHygieneCheck.bat  (alternative launcher)" -ForegroundColor Gray
-Write-Host "    • JAB-DriveHygieneCheck.ps1  (source script)" -ForegroundColor Gray
-Write-Host "    • README.md                   (documentation)" -ForegroundColor Gray
+Write-Host "    - JAB-DriveHygieneCheck.exe  (double-click to run)" -ForegroundColor Gray
+Write-Host "    - JAB-DriveHygieneCheck.bat  (alternative launcher)" -ForegroundColor Gray
+Write-Host "    - JAB-DriveHygieneCheck.ps1  (source script)" -ForegroundColor Gray
+Write-Host "    - README.md                   (documentation)" -ForegroundColor Gray
 Write-Host ""

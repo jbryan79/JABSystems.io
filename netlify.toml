@@ -1,0 +1,55 @@
+# Netlify Configuration for JAB Systems
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Directory to publish (root for static site)
+  publish = "."
+
+  # Functions directory
+  functions = "netlify/functions"
+
+[functions]
+  # Use esbuild for faster builds
+  node_bundler = "esbuild"
+
+  # Include dependencies
+  included_files = ["netlify/functions/**"]
+
+# Environment variables (set these in Netlify Dashboard, not here)
+# Required for email function:
+# - GMAIL_USER: Your Google Workspace email
+# - GMAIL_APP_PASSWORD: App password from Google
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers for PowerShell script downloads
+[[headers]]
+  for = "/tools/drive-hygiene/*.ps1"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Content-Disposition = "attachment"
+
+# Redirect www to non-www
+[[redirects]]
+  from = "https://www.jabsystems.io/*"
+  to = "https://jabsystems.io/:splat"
+  status = 301
+  force = true
+
+# Redirect for clean URLs
+[[redirects]]
+  from = "/tools/drive-hygiene"
+  to = "/tools/drive-hygiene/"
+  status = 301
+
+[[redirects]]
+  from = "/tools/admin-toolkit"
+  to = "/tools/admin-toolkit/"
+  status = 301

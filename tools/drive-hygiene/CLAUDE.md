@@ -1,109 +1,233 @@
-# JAB Drive Hygiene Check - Developer Guide
+<p align="center">
+  <img src="../../assets/jab-logo.png" alt="JAB Systems" width="80">
+</p>
+
+<h1 align="center">JAB Drive Hygiene Check</h1>
+<h3 align="center">Developer & Technical Guide</h3>
+
+<p align="center">
+  <a href="#architecture">Architecture</a> •
+  <a href="#api-reference">API Reference</a> •
+  <a href="#development">Development</a> •
+  <a href="#building">Building</a> •
+  <a href="#contributing">Contributing</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-PowerShell%205.1+-blue?style=flat-square" alt="Language">
+  <img src="https://img.shields.io/badge/Target-Windows%2010%2F11-0078D6?style=flat-square" alt="Target">
+  <img src="https://img.shields.io/badge/Dependencies-None-success?style=flat-square" alt="Dependencies">
+</p>
+
+---
 
 ## Overview
 
-PowerShell-based disk inspection and safe cleanup utility for Windows 10/11. This tool provides read-only disk analysis and optionally invokes native Windows cleanup utilities with pre-vetted safe categories.
+JAB Drive Hygiene Check is a PowerShell-based disk inspection utility designed with **transparency** and **safety** as core principles. This guide covers the technical architecture, API usage, and development guidelines.
+
+### Design Philosophy
+
+| Principle | Implementation |
+|-----------|----------------|
+| **Read-Only Default** | All inspection functions are non-destructive |
+| **Native APIs Only** | Uses built-in Windows WMI/CIM and Storage cmdlets |
+| **Zero Dependencies** | Single-file script, no external modules required |
+| **Graceful Degradation** | Works with limited features when admin rights unavailable |
+| **User Confirmation** | Any destructive action requires explicit approval |
+
+---
 
 ## Project Structure
 
 ```
 tools/drive-hygiene/
-├── index.html                    # Website detail page
-├── README.md                     # User documentation
-├── CLAUDE.md                     # This file (developer guide)
-└── JAB-DriveHygieneCheck.ps1     # Main PowerShell script
+│
+├── JAB-DriveHygieneCheck.ps1    # Main application script
+├── JAB-DriveHygieneCheck.bat    # Windows launcher (bypasses execution policy)
+├── build-exe.ps1                # Compilation script for .exe distribution
+│
+├── README.md                    # User documentation
+└── CLAUDE.md                    # This file (technical documentation)
 ```
 
-## Technology Stack
+---
 
-- **Language**: PowerShell 5.1+
-- **Target OS**: Windows 10 (1903+), Windows 11
-- **Dependencies**: None (uses built-in Windows APIs)
-- **Distribution**: Single .ps1 file
+## Architecture
 
-## Code Architecture
+### Module Organization
 
-### Script Structure
+The script is organized into logical sections:
 
 ```
-JAB-DriveHygieneCheck.ps1
-├── Script Header & Parameters
-├── Configuration
-│   └── $Script:SafeCleanupCategories
-├── Helper Functions
-│   ├── Write-Header
-│   ├── Write-SectionHeader
-│   ├── Write-SubHeader
-│   ├── Format-ByteSize
-│   ├── Write-StatusLine
-│   └── Test-AdminPrivileges
-├── Disk Inspection Functions
-│   ├── Get-PhysicalDiskInfo
-│   ├── Get-SMARTStatus
-│   └── Get-LogicalDiskInfo
-├── SSD Functions
-│   ├── Get-TrimStatus
-│   └── Get-OptimizationStatus
-├── Usage Analysis Functions
-│   ├── Get-FolderSize
-│   ├── Get-TempFilesSummary
-│   ├── Get-SystemCachesSummary
-│   ├── Get-RecycleBinSize
-│   ├── Get-BrowserCachesSummary
-│   └── Get-UsageBreakdown
-├── Display Functions
-│   ├── Show-PhysicalDisks
-│   ├── Show-SMARTStatus
-│   ├── Show-Volumes
-│   ├── Show-TrimStatus
-│   └── Show-UsageBreakdown
-├── Cleanup Functions
-│   └── Invoke-SafeDiskCleanup
-├── Report Generation
-│   ├── Export-HTMLReport
-│   └── Export-TextReport
-└── Main Execution
-    ├── Show-MainMenu
-    ├── Invoke-FullScan
-    └── Start-InteractiveMode
+┌─────────────────────────────────────────────────────────────────┐
+│                     JAB-DriveHygieneCheck.ps1                   │
+├─────────────────────────────────────────────────────────────────┤
+│  CONFIGURATION                                                  │
+│  └── Script variables, safe cleanup categories                  │
+├─────────────────────────────────────────────────────────────────┤
+│  HELPER FUNCTIONS                                               │
+│  ├── Write-Header, Write-SectionHeader, Write-SubHeader        │
+│  ├── Format-ByteSize, Write-StatusLine                         │
+│  └── Test-AdminPrivileges                                       │
+├─────────────────────────────────────────────────────────────────┤
+│  DISK INSPECTION                                                │
+│  ├── Get-PhysicalDiskInfo      → Physical drives               │
+│  ├── Get-SMARTStatus           → Health & reliability          │
+│  └── Get-LogicalDiskInfo       → Volumes & partitions          │
+├─────────────────────────────────────────────────────────────────┤
+│  SSD FUNCTIONS                                                  │
+│  ├── Get-TrimStatus            → TRIM enabled/disabled         │
+│  └── Get-OptimizationStatus    → Defrag/optimization state     │
+├─────────────────────────────────────────────────────────────────┤
+│  USAGE ANALYSIS                                                 │
+│  ├── Get-FolderSize            → Calculate directory size      │
+│  ├── Get-TempFilesSummary      → Temp folder analysis          │
+│  ├── Get-SystemCachesSummary   → Windows caches                │
+│  ├── Get-RecycleBinSize        → Recycle bin per drive         │
+│  ├── Get-BrowserCachesSummary  → Chrome/Edge/Firefox           │
+│  └── Get-UsageBreakdown        → Aggregated breakdown          │
+├─────────────────────────────────────────────────────────────────┤
+│  DISPLAY FUNCTIONS                                              │
+│  ├── Show-PhysicalDisks, Show-SMARTStatus                      │
+│  ├── Show-Volumes, Show-TrimStatus                             │
+│  └── Show-UsageBreakdown                                        │
+├─────────────────────────────────────────────────────────────────┤
+│  CLEANUP FUNCTIONS                                              │
+│  └── Invoke-SafeDiskCleanup    → Launch cleanmgr.exe           │
+├─────────────────────────────────────────────────────────────────┤
+│  REPORT GENERATION                                              │
+│  ├── Export-HTMLReport         → Styled HTML output            │
+│  └── Export-TextReport         → Plain text output             │
+├─────────────────────────────────────────────────────────────────┤
+│  MAIN EXECUTION                                                 │
+│  ├── Show-MainMenu             → Interactive menu loop         │
+│  ├── Invoke-FullScan           → Complete system scan          │
+│  └── Start-InteractiveMode     → Entry point for interactive   │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-## Development Guidelines
+### Data Flow
 
-### Code Style
+```
+User Input → Parameter Parsing → Mode Selection
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    ↓                  ↓                  ↓
+              Interactive         QuickScan          ExportOnly
+                    │                  │                  │
+                    └────────┬─────────┴──────────────────┘
+                             ↓
+                    Data Collection Layer
+                    ├── Get-PhysicalDiskInfo()
+                    ├── Get-SMARTStatus()
+                    ├── Get-LogicalDiskInfo()
+                    ├── Get-TrimStatus()
+                    └── Get-UsageBreakdown()
+                             │
+              ┌──────────────┼──────────────┐
+              ↓              ↓              ↓
+         Console        HTML Report    Text Report
+         Output          Export         Export
+```
 
-1. **Use Approved Verbs**: Get-, Set-, Test-, Invoke-, Export-, Show-, Start-
-2. **CmdletBinding**: All functions should use `[CmdletBinding()]`
-3. **Comment-Based Help**: Include `.SYNOPSIS` for all functions
-4. **Error Handling**: Use try/catch with `-ErrorAction SilentlyContinue` for graceful degradation
-5. **Verbose Output**: Use `Write-Verbose` for debug information
+---
 
-### Naming Conventions
+## API Reference
 
-- Functions: PascalCase with Verb-Noun format
-- Variables: camelCase for local, PascalCase for parameters
-- Script-scope variables: `$Script:VariableName`
+### Windows APIs Used
 
-### Example Function Template
+#### Storage Cmdlets (Primary)
+
+```powershell
+# Physical disk information and SMART status
+Get-PhysicalDisk
+# Returns: DeviceId, FriendlyName, MediaType, BusType, HealthStatus, Size
+
+# Reliability counters (requires admin)
+Get-StorageReliabilityCounter -PhysicalDisk $disk
+# Returns: Temperature, ReadErrorsTotal, WriteErrorsTotal, PowerOnHours, Wear
+
+# Volume information
+Get-Volume
+# Returns: DriveLetter, FileSystemType, Size, SizeRemaining
+```
+
+#### WMI/CIM Classes (Fallback)
+
+```powershell
+# Physical drives (fallback when Storage cmdlets unavailable)
+Get-CimInstance -ClassName Win32_DiskDrive
+# Returns: Index, Model, InterfaceType, MediaType, Size, Status
+
+# Logical disks / partitions
+Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3"
+# Returns: DeviceID, VolumeName, FileSystem, Size, FreeSpace
+```
+
+#### External Commands
+
+| Command | Purpose | Admin Required |
+|---------|---------|----------------|
+| `fsutil behavior query DisableDeleteNotify` | Check TRIM status | No |
+| `cleanmgr.exe /D <drive>` | Launch Disk Cleanup | No |
+
+---
+
+## Development
+
+### Code Style Guidelines
+
+#### Function Naming
+
+Use **approved PowerShell verbs** with PascalCase:
+
+| Verb | Use For |
+|------|---------|
+| `Get-` | Retrieve data without side effects |
+| `Set-` | Modify configuration |
+| `Test-` | Return boolean result |
+| `Invoke-` | Execute an action |
+| `Export-` | Output to file |
+| `Show-` | Display to console |
+| `Write-` | Console output helpers |
+| `Format-` | Data transformation |
+
+#### Function Template
 
 ```powershell
 function Get-ExampleData {
     <#
     .SYNOPSIS
-        Brief description of what this function does
+        Brief one-line description
+
+    .DESCRIPTION
+        Detailed explanation of what the function does
+
     .PARAMETER ParameterName
         Description of the parameter
+
     .EXAMPLE
         Get-ExampleData -ParameterName "value"
+
+        Description of what this example does
+
+    .OUTPUTS
+        [PSCustomObject] Description of output
     #>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [string]$ParameterName
     )
 
     try {
         # Implementation
+        $result = [PSCustomObject]@{
+            Property1 = "Value"
+            Property2 = 123
+        }
+        return $result
     }
     catch {
         Write-Verbose "Error in Get-ExampleData: $_"
@@ -112,55 +236,146 @@ function Get-ExampleData {
 }
 ```
 
-## Safety Requirements
+### Safety Requirements
 
-### MUST NEVER Do
+#### MUST DO
+
+- Use `[CmdletBinding()]` on all functions
+- Include comment-based help (`.SYNOPSIS`)
+- Use `try/catch` with `-ErrorAction SilentlyContinue` for graceful degradation
+- Return `$null` or empty collections on failure, never throw to user
+- Confirm any destructive action with user
+- Test with and without admin privileges
+
+#### MUST NOT
 
 - Modify the Windows Registry
-- Install drivers or kernel-level components
+- Install drivers or kernel components
 - Create background services or scheduled tasks
 - Delete files without explicit user confirmation
-- Send data over the network (telemetry, analytics)
-- Modify system files or protected directories
-- Bypass UAC or request unnecessary permissions
-- Store user data persistently
+- Transmit data over the network
+- Store persistent state
 
-### MUST Always Do
-
-- Display clear information about what will happen before any action
-- Require explicit user confirmation for any destructive operation
-- Provide graceful degradation when features aren't available
-- Work without administrator privileges (with reduced functionality)
-- Use only native Windows APIs and built-in tools
-
-## Windows APIs Used
-
-### Storage Cmdlets (Preferred)
+### Error Handling Pattern
 
 ```powershell
-Get-PhysicalDisk              # Physical disk info, SMART status
-Get-StorageReliabilityCounter # Reliability data (temperature, errors, wear)
-Get-Volume                    # Volume information
+function Get-DiskData {
+    [CmdletBinding()]
+    param()
+
+    $results = @()
+
+    try {
+        # Primary method
+        $data = Get-PhysicalDisk -ErrorAction Stop
+        # Process $data...
+    }
+    catch {
+        Write-Verbose "Primary method failed: $_"
+
+        try {
+            # Fallback method
+            $data = Get-CimInstance Win32_DiskDrive -ErrorAction Stop
+            # Process $data...
+        }
+        catch {
+            Write-Verbose "Fallback method failed: $_"
+            # Return empty, don't throw
+        }
+    }
+
+    return $results
+}
 ```
 
-### WMI/CIM Classes (Fallback)
+---
+
+## Building
+
+### Distribution Options
+
+#### Option 1: Script + Launcher (Default)
+
+Distribute these files together:
+- `JAB-DriveHygieneCheck.ps1` — Main script
+- `JAB-DriveHygieneCheck.bat` — Double-click launcher
+
+#### Option 2: Compiled Executable
+
+Use `ps2exe` to create a standalone `.exe`:
 
 ```powershell
-Win32_DiskDrive               # Physical disk info
-Win32_LogicalDisk             # Partition/volume info
-Win32_OperatingSystem         # System info
+# Install ps2exe (one-time)
+Install-Module -Name ps2exe -Scope CurrentUser
+
+# Run the build script
+.\build-exe.ps1
 ```
 
-### External Commands
+Or manually:
 
 ```powershell
-fsutil behavior query DisableDeleteNotify  # TRIM status
-cleanmgr.exe /D <drive>                    # Windows Disk Cleanup
+Invoke-ps2exe -inputFile "JAB-DriveHygieneCheck.ps1" `
+              -outputFile "JAB-DriveHygieneCheck.exe" `
+              -noConsole:$false `
+              -title "JAB Drive Hygiene Check" `
+              -company "JAB Systems" `
+              -version "1.0.0.0"
 ```
+
+### Code Signing (Enterprise)
+
+For enterprise distribution, sign the script:
+
+```powershell
+$cert = Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
+Set-AuthenticodeSignature -FilePath ".\JAB-DriveHygieneCheck.ps1" -Certificate $cert
+```
+
+---
+
+## Testing
+
+### Test Matrix
+
+| Scenario | Windows 10 | Windows 11 |
+|----------|------------|------------|
+| Standard user | ✓ | ✓ |
+| Administrator | ✓ | ✓ |
+| Single HDD | ✓ | ✓ |
+| Single SSD (SATA) | ✓ | ✓ |
+| Single NVMe | ✓ | ✓ |
+| Multiple drives | ✓ | ✓ |
+| Low disk space (<1GB) | ✓ | ✓ |
+| BitLocker encrypted | ✓ | ✓ |
+
+### Test Commands
+
+```powershell
+# Interactive mode
+.\JAB-DriveHygieneCheck.ps1
+
+# Quick scan (non-interactive)
+.\JAB-DriveHygieneCheck.ps1 -QuickScan
+
+# With verbose output
+.\JAB-DriveHygieneCheck.ps1 -QuickScan -Verbose
+
+# Export HTML report
+.\JAB-DriveHygieneCheck.ps1 -ExportReport -ReportFormat HTML
+
+# Export text report
+.\JAB-DriveHygieneCheck.ps1 -ExportReport -ReportFormat Text
+
+# Full options
+.\JAB-DriveHygieneCheck.ps1 -QuickScan -ExportReport -OutputPath "C:\Reports" -ReportFormat HTML -Verbose
+```
+
+---
 
 ## Safe Cleanup Categories
 
-Only these categories are considered safe for automated pre-selection:
+### Included (Pre-vetted Safe)
 
 ```powershell
 $Script:SafeCleanupCategories = @(
@@ -175,111 +390,69 @@ $Script:SafeCleanupCategories = @(
 )
 ```
 
-### Explicitly Excluded (Too Aggressive)
+### Excluded (Risk of Data Loss)
 
-- System Restore Points
-- Previous Windows Installations
-- Device Driver Packages
-- Windows Defender files
-- Debug dump files (may be needed for diagnostics)
+| Category | Reason |
+|----------|--------|
+| System Restore Points | User may need for recovery |
+| Previous Windows Installations | User may need to roll back |
+| Device Driver Packages | May break hardware functionality |
+| Windows Defender files | Security implications |
+| Debug dump files | May be needed for diagnostics |
 
-## Testing Requirements
-
-### Test Environments
-
-- [ ] Windows 10 21H2
-- [ ] Windows 10 22H2
-- [ ] Windows 11 22H2
-- [ ] Windows 11 23H2
-
-### Test Scenarios
-
-1. **Without Admin Privileges**
-   - Tool should run with reduced functionality
-   - Clear message about limited features
-   - No errors or crashes
-
-2. **With Admin Privileges**
-   - Full SMART data available
-   - Temperature readings (if supported)
-   - All reliability counters
-
-3. **Disk Configurations**
-   - Single HDD
-   - Single SSD (SATA)
-   - Single NVMe SSD
-   - Multiple drives (mixed types)
-   - RAID configurations (basic detection)
-
-4. **Edge Cases**
-   - Very low disk space (< 1GB free)
-   - Drives with no volume label
-   - Disconnected/offline drives
-   - Encrypted drives (BitLocker)
-
-### Test Commands
-
-```powershell
-# Interactive mode
-.\JAB-DriveHygieneCheck.ps1
-
-# Quick scan
-.\JAB-DriveHygieneCheck.ps1 -QuickScan
-
-# Export HTML report
-.\JAB-DriveHygieneCheck.ps1 -ExportReport -ReportFormat HTML
-
-# Export text report
-.\JAB-DriveHygieneCheck.ps1 -ExportReport -ReportFormat Text
-
-# With verbose output
-.\JAB-DriveHygieneCheck.ps1 -QuickScan -Verbose
-```
-
-## Distribution
-
-### File Preparation
-
-1. Script is distributed as a single `.ps1` file
-2. No compilation required
-3. Users can inspect before running
-
-### Code Signing (Optional)
-
-For enterprise distribution, consider signing the script:
-
-```powershell
-$cert = Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
-Set-AuthenticodeSignature -FilePath .\JAB-DriveHygieneCheck.ps1 -Certificate $cert
-```
+---
 
 ## Versioning
 
-Version format: `MAJOR.MINOR.PATCH`
+**Format:** `MAJOR.MINOR.PATCH`
 
-- **MAJOR**: Breaking changes or significant feature additions
-- **MINOR**: New features, backward compatible
-- **PATCH**: Bug fixes, minor improvements
+| Component | When to Increment |
+|-----------|-------------------|
+| MAJOR | Breaking changes, significant rewrites |
+| MINOR | New features, backward compatible |
+| PATCH | Bug fixes, minor improvements |
 
-Update version in script header:
+Update in script header:
 ```powershell
 $Script:Version = "1.0.0"
 ```
 
+---
+
 ## Changelog
 
-### v1.0.0 (Initial Release)
-- Physical disk enumeration and health status
-- SMART data retrieval (with admin)
-- Volume space analysis
-- TRIM status detection
-- Usage breakdown by category
-- Browser cache detection
-- Safe disk cleanup invocation
+### v1.0.0 — Initial Release
+
+**Features:**
+- Physical disk enumeration with SMART health status
+- Volume space analysis with visual progress bars
+- SSD TRIM status detection
+- Usage breakdown by category (temp, caches, browser data)
+- Safe cleanup launcher (Windows Disk Cleanup integration)
 - HTML and text report export
 - Interactive menu system
+- Command-line quick scan mode
+- Graceful degradation without admin rights
+
+**Safety:**
+- Read-only by default
+- No registry modifications
+- No network connections
+- No persistent state
+- User confirmation for all cleanup actions
+
+---
 
 ## Support
 
-- Website: https://jabsystems.io
-- Email: info@jabsystems.io
+| Channel | Contact |
+|---------|---------|
+| **Website** | [jabsystems.io](https://jabsystems.io) |
+| **Email** | info@jabsystems.io |
+| **Issues** | Contact via email |
+
+---
+
+<p align="center">
+  <sub>Built by <a href="https://jabsystems.io">JAB Systems</a> — Enterprise tools built by operators, for operators.</sub>
+</p>

@@ -1,136 +1,154 @@
-# JAB Drive Hygiene Check
+<p align="center">
+  <img src="../../assets/jab-logo.png" alt="JAB Systems" width="80">
+</p>
 
-A safe, read-only disk inspection and cleanup utility for Windows.
+<h1 align="center">JAB Drive Hygiene Check</h1>
 
-**No registry edits. No drivers. No surprises.**
+<p align="center">
+  <strong>Safe, read-only disk inspection and cleanup for Windows</strong>
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#understanding-results">Results</a> •
+  <a href="#faq">FAQ</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Windows%2010%2F11-blue?style=flat-square" alt="Platform">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
+  <img src="https://img.shields.io/badge/Version-1.0.0-orange?style=flat-square" alt="Version">
+</p>
+
+---
+
+## Why This Tool?
+
+Most disk utilities promise speed boosts, modify your registry, or run background services. **We built something different.**
+
+JAB Drive Hygiene Check is a **transparent, read-only inspection tool** that shows you exactly what's happening with your storage—without making changes you didn't ask for.
+
+> *"Inspection first. Action second. Always transparent."*
+
+---
+
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Disk Health** | SMART status monitoring across all connected drives |
+| **SSD Analysis** | TRIM status, optimization state, and wear indicators |
+| **Space Breakdown** | Visual breakdown of what's consuming your storage |
+| **Cleanup Finder** | Identifies temp files, caches, and safe-to-remove items |
+| **Safe Cleanup** | Launches native Windows tools with pre-vetted categories |
+| **Export Reports** | Generate HTML or text reports for documentation |
+
+### What We Don't Do
+
+- No registry modifications
+- No driver installations
+- No background services
+- No automatic deletions
+- No telemetry or data collection
+- No "speed boost" promises
 
 ---
 
 ## Quick Start
 
-### Option 1: Double-Click the Launcher (Easiest)
+### Option 1: Double-Click Launcher *(Recommended)*
 
+```
 1. Download the tool package
-2. **Double-click `JAB-DriveHygieneCheck.bat`**
-3. If prompted, allow administrator access (recommended for full features)
+2. Double-click JAB-DriveHygieneCheck.bat
+3. Done — the tool opens automatically
+```
 
-That's it. The tool launches automatically.
-
-### Option 2: Run the Executable
-
-1. Download `JAB-DriveHygieneCheck.exe`
-2. **Double-click to run**
-3. Allow administrator access when prompted
-
-### Option 3: Run the PowerShell Script
-
-1. Download `JAB-DriveHygieneCheck.ps1`
-2. Right-click and select **"Run with PowerShell"**
-3. If blocked, see [Troubleshooting](#troubleshooting) below
-
----
-
-## What This Tool Does
-
-- **Disk Health Inspection** - Checks SMART status across all connected drives
-- **SSD Status** - Reports TRIM and optimization status for solid-state drives
-- **Usage Analysis** - Shows what is consuming disk space by category
-- **Cleanup Candidates** - Identifies safe-to-remove temporary files and caches
-- **Safe Cleanup** - Optionally launches Windows Disk Cleanup with pre-vetted categories
-
----
-
-## What This Tool Does NOT Do
-
-- No registry modifications of any kind
-- No driver installations or kernel-level changes
-- No background services or persistent agents
-- No automated deletions without explicit confirmation
-- No telemetry, data collection, or phone-home behavior
-- No promises of "speed boosts" or "performance improvements"
-
----
-
-## Requirements
-
-| Requirement | Details |
-|-------------|---------|
-| Operating System | Windows 10 (version 1903+) or Windows 11 |
-| PowerShell | Version 5.1 or later (built into Windows) |
-| Privileges | Administrator recommended for full SMART data |
-
----
-
-## Usage
-
-### Interactive Mode (Default)
+### Option 2: PowerShell Direct
 
 ```powershell
 .\JAB-DriveHygieneCheck.ps1
 ```
 
-Launches an interactive menu where you can:
-- View physical disk information
-- Check volume status and free space
-- Analyze SSD/TRIM configuration
-- Scan for cleanup candidates
-- Export reports
-- Launch safe disk cleanup
-
-### Quick Scan (No Prompts)
-
-```powershell
-.\JAB-DriveHygieneCheck.ps1 -QuickScan
-```
-
-Runs a complete scan and displays results without interactive prompts.
-
-### Export Report
-
-```powershell
-# HTML Report (default)
-.\JAB-DriveHygieneCheck.ps1 -ExportReport -OutputPath "C:\Reports"
-
-# Text Report
-.\JAB-DriveHygieneCheck.ps1 -ExportReport -OutputPath "C:\Reports" -ReportFormat Text
-
-# Quick scan with HTML export
-.\JAB-DriveHygieneCheck.ps1 -QuickScan -ExportReport
-```
+> **Tip:** Right-click and select "Run as Administrator" for complete SMART data and temperature readings.
 
 ---
 
-## Understanding the Output
+## Usage
+
+### Interactive Mode
+
+Launch the tool and use the menu to navigate:
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║                        MAIN MENU                              ║
+╠═══════════════════════════════════════════════════════════════╣
+║   [1]  View Physical Disk Information                         ║
+║   [2]  View Volume Status                                     ║
+║   [3]  View SSD/TRIM Status                                   ║
+║   [4]  Analyze Cleanup Candidates                             ║
+║   [5]  Run Full Scan                                          ║
+║   [6]  Launch Safe Disk Cleanup                               ║
+║   [7]  Export Report                                          ║
+║   [Q]  Quit                                                   ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+### Command Line Options
+
+| Command | Description |
+|---------|-------------|
+| `.\JAB-DriveHygieneCheck.ps1` | Interactive mode |
+| `.\JAB-DriveHygieneCheck.ps1 -QuickScan` | Run full scan, no prompts |
+| `.\JAB-DriveHygieneCheck.ps1 -ExportReport` | Scan and save HTML report |
+| `.\JAB-DriveHygieneCheck.ps1 -ExportReport -ReportFormat Text` | Save as text file |
+| `.\JAB-DriveHygieneCheck.ps1 -QuickScan -ExportReport -OutputPath "C:\Reports"` | Combined options |
+
+---
+
+## Understanding Results
 
 ### Health Status
 
+| Status | Indicator | Meaning |
+|--------|-----------|---------|
+| **Healthy** | 🟢 | Drive operating normally |
+| **Warning** | 🟡 | Issues detected — monitor closely |
+| **Unhealthy** | 🔴 | Immediate attention required |
+
+### Volume Space
+
+The tool displays visual progress bars for each volume:
+
+```
+C: Windows
+[████████████████████████░░░░░░░░░░░░░░░░] 62.3% used
+Used: 580.12 GB / Total: 931.51 GB / Free: 351.39 GB
+```
+
+| Free Space | Status | Action |
+|------------|--------|--------|
+| > 20% | Healthy | No action needed |
+| 10-20% | Warning | Consider cleanup |
+| < 10% | Critical | Cleanup recommended |
+
+### TRIM Status (SSDs)
+
 | Status | Meaning |
 |--------|---------|
-| **Healthy** | Drive is operating normally |
-| **Warning** | Issues detected - monitor closely |
-| **Unhealthy** | Immediate attention required - back up data |
-
-### TRIM Status
-
-| Status | Meaning |
-|--------|---------|
-| **Enabled** | SSD optimization is working correctly |
-| **Disabled** | May impact SSD performance and lifespan |
-
-### Volume Status
-
-| Status | Meaning |
-|--------|---------|
-| **Healthy** | More than 20% free space |
-| **Warning** | Between 10-20% free space |
-| **Critical** | Less than 10% free space |
+| **Enabled** | SSD optimization working correctly |
+| **Disabled** | May impact performance and lifespan |
 
 ---
 
-## Safe Cleanup Categories
+## Cleanup Categories
 
-When you choose to launch Disk Cleanup, only these pre-vetted categories are recommended:
+When you launch Safe Cleanup, only these **pre-vetted categories** are recommended:
 
+**Included (Safe):**
 - Temporary Files
 - Temporary Internet Files
 - Thumbnails
@@ -139,57 +157,18 @@ When you choose to launch Disk Cleanup, only these pre-vetted categories are rec
 - Downloaded Program Files
 - Recycle Bin
 
-**Categories we explicitly exclude** (too aggressive):
+**Excluded (Too Aggressive):**
 - System Restore Points
 - Previous Windows Installations
 - Device Driver Packages
 
-You always make the final selection in the Windows Disk Cleanup dialog.
+> **Note:** You always make the final selection in Windows Disk Cleanup. Nothing is deleted without your explicit confirmation.
 
 ---
 
-## Troubleshooting
+## Locations Analyzed
 
-### "Running scripts is disabled on this system"
-
-PowerShell's execution policy is blocking the script. Run PowerShell as Administrator and execute:
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-Then try running the script again.
-
-### Limited information displayed
-
-Some data (SMART status, reliability counters, temperature) requires administrator privileges. For complete results:
-
-1. Right-click PowerShell
-2. Select "Run as Administrator"
-3. Navigate to the script location
-4. Run the script
-
-### "Get-PhysicalDisk not found"
-
-This can occur on older Windows versions. The tool will automatically fall back to WMI methods, but some features may be limited.
-
----
-
-## Privacy & Security
-
-This tool is designed with transparency in mind:
-
-- **No network connections** - The script never connects to the internet
-- **No data collection** - Nothing is logged or transmitted
-- **Fully inspectable** - The script is plain text PowerShell you can read
-- **No persistence** - Nothing is installed, no services are created
-- **Read-only by default** - Changes only happen when you explicitly confirm
-
----
-
-## File Locations Analyzed
-
-The tool inspects these locations for cleanup candidates:
+The tool inspects these common storage consumers:
 
 | Category | Location |
 |----------|----------|
@@ -197,7 +176,7 @@ The tool inspects these locations for cleanup candidates:
 | Windows Temp | `C:\Windows\Temp` |
 | Prefetch | `C:\Windows\Prefetch` |
 | Windows Update | `C:\Windows\SoftwareDistribution\Download` |
-| Delivery Optimization | `C:\Windows\ServiceProfiles\...\DeliveryOptimization` |
+| Delivery Optimization | System cache folder |
 | Chrome Cache | `%LOCALAPPDATA%\Google\Chrome\...\Cache` |
 | Edge Cache | `%LOCALAPPDATA%\Microsoft\Edge\...\Cache` |
 | Firefox Cache | `%LOCALAPPDATA%\Mozilla\Firefox\Profiles` |
@@ -205,52 +184,105 @@ The tool inspects these locations for cleanup candidates:
 
 ---
 
-## Example Output
+## System Requirements
 
+| Requirement | Specification |
+|-------------|---------------|
+| **OS** | Windows 10 (1903+) or Windows 11 |
+| **PowerShell** | 5.1 or later (included with Windows) |
+| **Privileges** | Standard user (Admin recommended for full data) |
+| **Storage** | Minimal (~50 KB for script) |
+
+---
+
+## Troubleshooting
+
+### "Running scripts is disabled on this system"
+
+PowerShell's execution policy is blocking the script. **Solution:**
+
+```powershell
+# Option 1: Use the .bat launcher (bypasses this automatically)
+
+# Option 2: Set policy for current user
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-  ═══════════════════════════════════════════════════════════════
-   Physical Disks
-  ═══════════════════════════════════════════════════════════════
 
-    ┌─────────────────────────────────────────────────────────
-    │ Disk 0: Samsung SSD 970 EVO Plus 1TB
-    ├─────────────────────────────────────────────────────────
-      Type                      SSD
-      Bus                       NVMe
-      Size                      931.51 GB
-      Health                    Healthy
-      Status                    OK
-    └─────────────────────────────────────────────────────────
+### Limited SMART Data
 
-  ═══════════════════════════════════════════════════════════════
-   Volumes
-  ═══════════════════════════════════════════════════════════════
+Some information (temperature, wear level, error counts) requires administrator privileges.
 
-    C: Windows
-    [████████████████████████░░░░░░░░░░░░░░░░] 62.3% used
-    Used: 580.12 GB / Total: 931.51 GB / Free: 351.39 GB
-```
+**Solution:** Right-click the launcher and select "Run as Administrator"
+
+### "Get-PhysicalDisk not found"
+
+This occurs on older Windows versions. The tool automatically falls back to WMI methods, but some features may be limited.
+
+**Solution:** Update to Windows 10 version 1903 or later
+
+---
+
+## FAQ
+
+<details>
+<summary><strong>Is this tool safe to run?</strong></summary>
+
+Yes. The tool is read-only by default and makes no changes to your system. The only action that modifies anything is the optional "Safe Cleanup" feature, which simply launches Windows' built-in Disk Cleanup utility—you still make the final decisions there.
+
+</details>
+
+<details>
+<summary><strong>Does this tool connect to the internet?</strong></summary>
+
+No. The script runs entirely offline. There is no telemetry, no update checks, and no data transmitted anywhere.
+
+</details>
+
+<details>
+<summary><strong>Can I inspect the code before running?</strong></summary>
+
+Absolutely. The tool is a plain-text PowerShell script. Open `JAB-DriveHygieneCheck.ps1` in any text editor to review exactly what it does.
+
+</details>
+
+<details>
+<summary><strong>Why do I need admin rights for some features?</strong></summary>
+
+Windows restricts access to certain hardware information (SMART data, temperature sensors, reliability counters) to administrator accounts. The tool works without admin—you just get less detailed hardware information.
+
+</details>
+
+<details>
+<summary><strong>Will this speed up my computer?</strong></summary>
+
+We don't make that promise. This tool helps you understand your storage situation and identify cleanup candidates. Whether cleanup improves perceived performance depends on your specific situation.
+
+</details>
+
+---
+
+## Privacy & Security
+
+| Aspect | Guarantee |
+|--------|-----------|
+| **Network** | No internet connections |
+| **Data Collection** | None — no telemetry |
+| **Persistence** | No services, no scheduled tasks |
+| **Code** | Fully readable PowerShell |
+| **Changes** | Read-only unless you explicitly confirm cleanup |
 
 ---
 
 ## Support
 
-Questions or issues?
-
-- **Website**: [jabsystems.io](https://jabsystems.io)
-- **Email**: info@jabsystems.io
-
----
-
-## License
-
-MIT License - See [LICENSE](../../LICENSE) file for details.
+**Website:** [jabsystems.io](https://jabsystems.io)
+**Email:** info@jabsystems.io
 
 ---
 
 ## Related Tools
 
-If you find this utility helpful, check out the **JAB Admin Toolkit** - a comprehensive administrative toolkit that includes this functionality plus:
+Looking for more comprehensive system administration? Check out the **[JAB Admin Toolkit](https://jabsystems.io/tools/admin-toolkit/)** — our full-featured administrative suite including:
 
 - System health monitoring
 - Network diagnostics
@@ -258,4 +290,8 @@ If you find this utility helpful, check out the **JAB Admin Toolkit** - a compre
 - Application analysis
 - And more
 
-[Learn about JAB Admin Toolkit](https://jabsystems.io/tools/admin-toolkit/)
+---
+
+<p align="center">
+  <sub>Built by <a href="https://jabsystems.io">JAB Systems</a> — Enterprise tools built by operators, for operators.</sub>
+</p>

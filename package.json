@@ -1,0 +1,12 @@
+{
+  "name": "jabsystems-website",
+  "version": "1.0.0",
+  "description": "JAB Systems website with Netlify Functions",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static site - no build required'"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.8"
+  }
+}

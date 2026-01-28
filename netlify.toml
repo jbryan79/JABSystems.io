@@ -8,12 +8,15 @@
   # Functions directory
   functions = "netlify/functions"
 
+  # Install dependencies
+  command = "npm install"
+
 [functions]
   # Use esbuild for faster builds
   node_bundler = "esbuild"
 
-  # Include dependencies
-  included_files = ["netlify/functions/**"]
+  # Node version
+  node_bundler = "esbuild"
 
 # Environment variables (set these in Netlify Dashboard, not here)
 # Required for email function:

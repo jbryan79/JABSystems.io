@@ -15,9 +15,6 @@
   # Use esbuild for faster builds
   node_bundler = "esbuild"
 
-  # Node version
-  node_bundler = "esbuild"
-
 # Environment variables (set these in Netlify Dashboard, not here)
 # Required for email function:
 # - GMAIL_USER: Your Google Workspace email

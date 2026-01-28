@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     JAB Drive Hygiene Check - Safe, read-only disk inspection and cleanup utility
 
@@ -97,13 +97,17 @@ function Write-Header {
     Clear-Host
     $banner = @"
 
-     ===============================================================
-     |                                                             |
-     |        JAB DRIVE HYGIENE CHECK                              |
-     |                                                             |
-     |        Safe, read-only disk inspection utility              |
-     |                                                             |
-     ===============================================================
+     Ã¢â€¢"Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢-
+     Ã¢â€¢'                                                               Ã¢â€¢'
+     Ã¢â€¢'        Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-â€žÃ¢-'Ã¢-'Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-â€žÃ¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-â€žÃ¢-'Ã¢-â‚¬Ã¢-Ë†Ã¢-â‚¬Ã¢-'Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-â‚¬                     Ã¢â€¢'
+     Ã¢â€¢'        Ã¢-'Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-â€žÃ¢-'Ã¢-'Ã¢-'Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-â€žÃ¢-'Ã¢-'Ã¢-Ë†Ã¢-'Ã¢-'Ã¢-â‚¬Ã¢-â€žÃ¢-â‚¬Ã¢-'Ã¢-Ë†Ã¢-â‚¬Ã¢-â‚¬                     Ã¢â€¢'
+     Ã¢â€¢'        Ã¢-'Ã¢-â‚¬Ã¢-â‚¬Ã¢-â‚¬Ã¢-'Ã¢-â‚¬Ã¢-'Ã¢-â‚¬Ã¢-'Ã¢-â‚¬Ã¢-â‚¬Ã¢-'Ã¢-'Ã¢-'Ã¢-'Ã¢-â‚¬Ã¢-â‚¬Ã¢-'Ã¢-'Ã¢-â‚¬Ã¢-'Ã¢-â‚¬Ã¢-'Ã¢-â‚¬Ã¢-â‚¬Ã¢-â‚¬Ã¢-'Ã¢-'Ã¢-â‚¬Ã¢-'Ã¢-'Ã¢-â‚¬Ã¢-â‚¬Ã¢-â‚¬                     Ã¢â€¢'
+     Ã¢â€¢'                                                               Ã¢â€¢'
+     Ã¢â€¢'              H Y G I E N E   C H E C K                        Ã¢â€¢'
+     Ã¢â€¢'                                                               Ã¢â€¢'
+     Ã¢â€¢'          Safe, read-only disk inspection utility              Ã¢â€¢'
+     Ã¢â€¢'                                                               Ã¢â€¢'
+     Ã¢â€¢Å¡Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
 "@
     Write-Host $banner -ForegroundColor Cyan
@@ -122,9 +126,9 @@ function Write-SectionHeader {
     )
 
     Write-Host ""
-    Write-Host "  ===============================================================" -ForegroundColor DarkCyan
+    Write-Host "  Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â" -ForegroundColor DarkCyan
     Write-Host "   $Title" -ForegroundColor White
-    Write-Host "  ===============================================================" -ForegroundColor DarkCyan
+    Write-Host "  Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â" -ForegroundColor DarkCyan
     Write-Host ""
 }
 
@@ -139,7 +143,7 @@ function Write-SubHeader {
     )
 
     Write-Host ""
-    Write-Host "   --- $Title ---" -ForegroundColor Gray
+    Write-Host "   Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ $Title Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬" -ForegroundColor Gray
     Write-Host ""
 }
 
@@ -299,7 +303,7 @@ function Get-SMARTStatus {
                 FriendlyName      = $disk.FriendlyName
                 HealthStatus      = $disk.HealthStatus
                 OperationalStatus = $disk.OperationalStatus
-                Temperature       = if ($reliability) { "$($reliability.Temperature)C" } else { "N/A" }
+                Temperature       = if ($reliability) { "$($reliability.Temperature)Ã‚Â°C" } else { "N/A" }
                 ReadErrors        = if ($reliability) { $reliability.ReadErrorsTotal } else { "N/A" }
                 WriteErrors       = if ($reliability) { $reliability.WriteErrorsTotal } else { "N/A" }
                 PowerOnHours      = if ($reliability) { $reliability.PowerOnHours } else { "N/A" }
@@ -674,16 +678,16 @@ function Show-PhysicalDisks {
             default { "White" }
         }
 
-        Write-Host "    +-----------------------------------------------------------" -ForegroundColor DarkGray
-        Write-Host "    | " -NoNewline -ForegroundColor DarkGray
+        Write-Host "    Ã¢"Å'Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬" -ForegroundColor DarkGray
+        Write-Host "    Ã¢"â€š " -NoNewline -ForegroundColor DarkGray
         Write-Host "Disk $($disk.DeviceId): $($disk.FriendlyName)" -ForegroundColor White
-        Write-Host "    +-----------------------------------------------------------" -ForegroundColor DarkGray
+        Write-Host "    Ã¢"Å"Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬" -ForegroundColor DarkGray
         Write-StatusLine -Label "Type" -Value $disk.MediaType -Indent 6
         Write-StatusLine -Label "Bus" -Value $disk.BusType -Indent 6
         Write-StatusLine -Label "Size" -Value $disk.SizeFormatted -Indent 6
         Write-StatusLine -Label "Health" -Value $disk.HealthStatus -Status $(if ($disk.HealthStatus -eq "Healthy") { "Good" } else { "Warning" }) -Indent 6
         Write-StatusLine -Label "Status" -Value $disk.OperationalStatus -Indent 6
-        Write-Host "    +-----------------------------------------------------------" -ForegroundColor DarkGray
+        Write-Host "    Ã¢""Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬" -ForegroundColor DarkGray
         Write-Host ""
     }
 }
@@ -752,8 +756,8 @@ function Show-Volumes {
 
         Write-Host "    $($vol.DriveLetter) $($vol.VolumeName)" -ForegroundColor White
         Write-Host "    [" -NoNewline -ForegroundColor Gray
-        Write-Host ("#" * $usedBars) -NoNewline -ForegroundColor $barColor
-        Write-Host ("-" * $freeBars) -NoNewline -ForegroundColor DarkGray
+        Write-Host ("Ã¢-Ë†" * $usedBars) -NoNewline -ForegroundColor $barColor
+        Write-Host ("Ã¢-'" * $freeBars) -NoNewline -ForegroundColor DarkGray
         Write-Host "] $($vol.PercentUsed)% used" -ForegroundColor Gray
         Write-Host "    Used: $($vol.UsedSpaceFormatted) / Total: $($vol.TotalSizeFormatted) / Free: $($vol.FreeSpaceFormatted)" -ForegroundColor DarkGray
         Write-Host ""
@@ -797,10 +801,10 @@ function Show-UsageBreakdown {
 
     foreach ($item in $Breakdown) {
         if ($item.Size -gt 0) {
-            Write-Host "    +- " -NoNewline -ForegroundColor DarkGray
+            Write-Host "    Ã¢"Å"Ã¢"â‚¬ " -NoNewline -ForegroundColor DarkGray
             Write-Host "$($item.Category)".PadRight(35) -NoNewline -ForegroundColor Gray
             Write-Host $item.SizeFormatted -ForegroundColor $(if ($item.Size -gt 500MB) { "Yellow" } elseif ($item.Size -gt 100MB) { "White" } else { "DarkGray" })
-            Write-Host "    |  $($item.FileCount) files in $($item.Path)" -ForegroundColor DarkGray
+            Write-Host "    Ã¢"â€š  $($item.FileCount) files in $($item.Path)" -ForegroundColor DarkGray
         }
     }
 }
@@ -826,7 +830,7 @@ function Invoke-SafeDiskCleanup {
     Write-Host ""
 
     foreach ($category in $Script:SafeCleanupCategories) {
-        Write-Host "      • $category" -ForegroundColor White
+        Write-Host "      Ã¢â‚¬Â¢ $category" -ForegroundColor White
     }
 
     Write-Host ""
@@ -1058,21 +1062,21 @@ function Show-MainMenu {
     #>
 
     Write-Host ""
-    Write-Host "  ===============================================================" -ForegroundColor Cyan
-    Write-Host "  |                        MAIN MENU                            |" -ForegroundColor Cyan
-    Write-Host "  +-------------------------------------------------------------+" -ForegroundColor Cyan
-    Write-Host "  |                                                             |" -ForegroundColor Cyan
-    Write-Host "  |   [1]  View Physical Disk Information                       |" -ForegroundColor Cyan
-    Write-Host "  |   [2]  View Volume Status                                   |" -ForegroundColor Cyan
-    Write-Host "  |   [3]  View SSD/TRIM Status                                 |" -ForegroundColor Cyan
-    Write-Host "  |   [4]  Analyze Cleanup Candidates                           |" -ForegroundColor Cyan
-    Write-Host "  |   [5]  Run Full Scan                                        |" -ForegroundColor Cyan
-    Write-Host "  |   [6]  Launch Safe Disk Cleanup                             |" -ForegroundColor Cyan
-    Write-Host "  |   [7]  Export Report                                        |" -ForegroundColor Cyan
-    Write-Host "  |                                                             |" -ForegroundColor Cyan
-    Write-Host "  |   [Q]  Quit                                                 |" -ForegroundColor Cyan
-    Write-Host "  |                                                             |" -ForegroundColor Cyan
-    Write-Host "  ===============================================================" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢"Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢-" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'                        MAIN MENU                              Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢Â Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â£" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'                                                               Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [1]  View Physical Disk Information                         Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [2]  View Volume Status                                     Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [3]  View SSD/TRIM Status                                   Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [4]  Analyze Cleanup Candidates                             Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [5]  Run Full Scan                                          Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [6]  Launch Safe Disk Cleanup                               Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [7]  Export Report                                          Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'                                                               Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'   [Q]  Quit                                                   Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢'                                                               Ã¢â€¢'" -ForegroundColor Cyan
+    Write-Host "  Ã¢â€¢Å¡Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â" -ForegroundColor Cyan
     Write-Host ""
 
     $choice = Read-Host "  Select an option"
@@ -1255,3 +1259,4 @@ elseif ($ExportReport) {
 else {
     Start-InteractiveMode
 }
+

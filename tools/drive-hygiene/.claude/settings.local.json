@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pwsh -ExecutionPolicy Bypass -File \"fix-smart-quotes.ps1\" -FilePath \"JAB-DriveHygieneCheck.ps1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"fix-smart-quotes.ps1\" -FilePath \"JAB-DriveHygieneCheck.ps1\")",
+      "Bash(ls:*)",
+      "Bash(powershell.exe -Command \"Get-Content ''JAB-DriveHygieneCheck.ps1'' -Raw | Out-File ''temp-reencoded.ps1'' -Encoding UTF8\")",
+      "Bash(powershell.exe:*)",
+      "Bash(git checkout:*)",
+      "Bash(./build/JAB-DriveHygieneCheck.exe:*)"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ApplicationIcon>jab-icon.ico</ApplicationIcon>
+    <AssemblyName>JABDriveHygiene</AssemblyName>
+    <Product>JAB Drive Hygiene Check</Product>
+    <Version>1.0.0</Version>
+    <Company>JAB Systems</Company>
+    <Copyright>Copyright © JAB Systems 2025</Copyright>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\jab-icon.ico" Link="jab-icon.ico" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\JAB-DriveHygieneCheck.ps1" Link="JAB-DriveHygieneCheck.ps1" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

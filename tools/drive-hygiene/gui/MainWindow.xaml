@@ -1,0 +1,329 @@
+<Window x:Class="JABDriveHygieneGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="JAB Drive Hygiene Check"
+        Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid>
+        <!-- Left Navigation Rail -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Navigation Panel -->
+        <Border Grid.Column="0"
+                Background="{StaticResource CardBackgroundBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,1,0">
+            <StackPanel>
+                <!-- Logo/Title Area -->
+                <Border Padding="16" Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="JAB" FontSize="20" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                        <TextBlock Text="Drive Hygiene" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Navigation Buttons -->
+                <Button Content="Inspect"
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Tag="Selected"
+                        Click="NavigateToInspect"/>
+                <Button Content="Results"
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Click="NavigateToResults"/>
+                <Button Content="Export"
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Click="NavigateToExport"/>
+                <Button Content="About"
+                        Style="{StaticResource NavigationButtonStyle}"
+                        Click="NavigateToAbout"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Content Area -->
+        <Grid Grid.Column="1">
+            <!-- Inspect View -->
+            <Grid x:Name="InspectView" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border Grid.Row="0" Padding="32,24">
+                    <StackPanel>
+                        <TextBlock Text="System Inspection" FontSize="24" FontWeight="SemiBold"/>
+                        <TextBlock Text="Read-only disk and volume analysis"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Content -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="32,0,32,32">
+                        <!-- Trust Indicators Card -->
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="TRUST INDICATORS"
+                                           FontSize="11"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="0,0,0,12"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="✔" Foreground="{StaticResource SuccessBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Read-only operations" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="✔" Foreground="{StaticResource SuccessBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="No registry changes" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="✔" Foreground="{StaticResource SuccessBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="No background services" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Status Panel -->
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16" x:Name="StatusPanel" Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="LAST RUN"
+                                           FontSize="11"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="0,0,0,12"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Timestamp:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,16,6"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" x:Name="LastRunTimestamp" Text="-" Margin="0,0,0,6"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Duration:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,16,6"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="LastRunDuration" Text="-" Margin="0,0,0,6"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Privilege:" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,16,0"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" x:Name="LastRunPrivilege" Text="-"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Progress Panel -->
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16" x:Name="ProgressPanel" Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="INSPECTION IN PROGRESS"
+                                           FontSize="11"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource WarningBrush}"
+                                           Margin="0,0,0,12"/>
+                                <TextBlock x:Name="ProgressText"
+                                           Text="Initializing..."
+                                           Foreground="{StaticResource TextSecondaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Action Button -->
+                        <Button Content="Run Inspection"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                x:Name="RunInspectionButton"
+                                Click="RunInspection"
+                                HorizontalAlignment="Left"
+                                Padding="32,12"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Results View -->
+            <Grid x:Name="ResultsView" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border Grid.Row="0" Padding="32,24">
+                    <TextBlock Text="Inspection Results" FontSize="24" FontWeight="SemiBold"/>
+                </Border>
+
+                <!-- Content -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="32,0,32,32" x:Name="ResultsContent">
+                        <TextBlock Text="No inspection results available."
+                                   Foreground="{StaticResource TextSecondaryBrush}"/>
+                        <TextBlock Text="Run an inspection to view results."
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Export View -->
+            <Grid x:Name="ExportView" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border Grid.Row="0" Padding="32,24">
+                    <TextBlock Text="Export Report" FontSize="24" FontWeight="SemiBold"/>
+                </Border>
+
+                <!-- Content -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="32,0,32,32">
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="FORMAT SELECTION"
+                                           FontSize="11"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="0,0,0,12"/>
+                                <RadioButton x:Name="HtmlFormatRadio"
+                                             Content="HTML Report (recommended)"
+                                             IsChecked="True"
+                                             Foreground="{StaticResource TextPrimaryBrush}"
+                                             Margin="0,0,0,8"/>
+                                <RadioButton x:Name="TextFormatRadio"
+                                             Content="Text Report"
+                                             Foreground="{StaticResource TextPrimaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="OUTPUT LOCATION"
+                                           FontSize="11"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="0,0,0,12"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="ExportPathTextBox"
+                                             Grid.Column="0"
+                                             Text="{Binding Source={x:Static Environment.CurrentDirectory}}"
+                                             IsReadOnly="True"
+                                             Background="{StaticResource BackgroundBrush}"
+                                             Foreground="{StaticResource TextPrimaryBrush}"
+                                             BorderBrush="{StaticResource BorderBrush}"
+                                             Padding="8"
+                                             Margin="0,0,8,0"/>
+                                    <Button Grid.Column="1"
+                                            Content="Browse..."
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Click="BrowseExportPath"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <CheckBox x:Name="OpenAfterExportCheckBox"
+                                          Content="Open report after export"
+                                          IsChecked="True"
+                                          Foreground="{StaticResource TextPrimaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                            <TextBlock TextWrapping="Wrap" Foreground="{StaticResource TextSecondaryBrush}">
+                                <Run Text="NOTE:"/>
+                                <Run Text="Reports are generated locally and contain no telemetry or tracking."/>
+                            </TextBlock>
+                        </Border>
+
+                        <Button Content="Export Report"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                x:Name="ExportButton"
+                                Click="ExportReport"
+                                HorizontalAlignment="Left"
+                                Padding="32,12"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- About View -->
+            <Grid x:Name="AboutView" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border Grid.Row="0" Padding="32,24">
+                    <TextBlock Text="About" FontSize="24" FontWeight="SemiBold"/>
+                </Border>
+
+                <!-- Content -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="32,0,32,32">
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="JAB DRIVE HYGIENE CHECK"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,8"/>
+                                <TextBlock x:Name="VersionText"
+                                           Text="Version 1.0.0"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="0,0,0,12"/>
+                                <TextBlock TextWrapping="Wrap"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="0,0,0,12">
+                                    A Windows disk inspection utility that analyzes drive health, SMART status,
+                                    SSD optimization, and disk usage. Identifies cleanup candidates and optionally
+                                    invokes native Windows Disk Cleanup with pre-vetted safe categories.
+                                </TextBlock>
+                                <TextBlock Text="https://jabsystems.io"
+                                           Foreground="{StaticResource AccentBrush}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="GUARANTEES"
+                                           FontSize="11"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="0,0,0,12"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="✓" Foreground="{StaticResource SuccessBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="No telemetry or data collection" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="✓" Foreground="{StaticResource SuccessBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="No persistent background services" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="✓" Foreground="{StaticResource SuccessBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="MIT License - Open source" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Button Content="View Script Source"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Click="ViewScriptSource"
+                                HorizontalAlignment="Left"
+                                Padding="24,10"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

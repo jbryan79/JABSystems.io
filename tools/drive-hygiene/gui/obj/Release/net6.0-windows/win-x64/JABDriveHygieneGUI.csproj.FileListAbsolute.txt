@@ -1,0 +1,4 @@
+D:\Projects\JABSystems.io\tools\drive-hygiene\gui\obj\Release\net6.0-windows\win-x64\JABDriveHygieneGUI.csproj.AssemblyReference.cache
+D:\Projects\JABSystems.io\tools\drive-hygiene\gui\obj\Release\net6.0-windows\win-x64\App.baml
+D:\Projects\JABSystems.io\tools\drive-hygiene\gui\obj\Release\net6.0-windows\win-x64\App.g.cs
+D:\Projects\JABSystems.io\tools\drive-hygiene\gui\obj\Release\net6.0-windows\win-x64\JABDriveHygiene_MarkupCompile.cache

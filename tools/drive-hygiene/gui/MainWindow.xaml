@@ -58,8 +58,9 @@
                     <StackPanel>
                         <TextBlock Text="System Inspection" FontSize="24" FontWeight="SemiBold"/>
                         <TextBlock Text="Read-only disk and volume analysis"
-                                   Foreground="{StaticResource TextSecondaryBrush}"
-                                   Margin="0,4,0,0"/>
+           Foreground="#FF6B7280"
+           FontSize="13"
+           Margin="0,4,0,0"/>
                     </StackPanel>
                 </Border>
 
@@ -216,8 +217,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBox x:Name="ExportPathTextBox"
                                              Grid.Column="0"
-                                             Text="{Binding Source={x:Static Environment.CurrentDirectory}}"
-                                             IsReadOnly="True"
+                                             Text=""                                             IsReadOnly="True"
                                              Background="{StaticResource BackgroundBrush}"
                                              Foreground="{StaticResource TextPrimaryBrush}"
                                              BorderBrush="{StaticResource BorderBrush}"

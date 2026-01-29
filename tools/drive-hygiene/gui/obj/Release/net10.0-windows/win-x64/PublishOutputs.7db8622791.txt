@@ -1,0 +1,3 @@
+D:\Projects\JABSystems.io\tools\drive-hygiene\build-gui\JABDriveHygiene.pdb
+D:\Projects\JABSystems.io\tools\drive-hygiene\build-gui\JAB-DriveHygieneCheck.ps1
+D:\Projects\JABSystems.io\tools\drive-hygiene\build-gui\JABDriveHygiene.exe
